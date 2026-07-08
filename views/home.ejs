@@ -1,10 +1,95 @@
 <%- include('partials/header') %>
+
 <link rel="stylesheet" href="/css/styles.css">
 
 <main>
-    <h1><%= title %></h1>
-    <p> Welcome to our service project platform! Feel at home and at peace </p>
-    <p>We connect volunteers with meaningful opportunities.</p>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1><%= title %></h1>
+
+            <p class="hero-text">
+                Connecting passionate volunteers with meaningful opportunities 
+                that create positive change in our communities.
+            </p>
+
+            <div class="hero-buttons">
+                <a href="/organizations" class="btn primary-btn">
+                    Explore Organizations
+                </a>
+
+                <a href="/signup" class="btn secondary-btn">
+                    Become a Volunteer
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Mission Section -->
+    <section class="mission">
+        <h2>Making A Difference Together</h2>
+
+        <p>
+            Our platform helps people discover service opportunities,
+            join organizations, and contribute their time and talents
+            to causes that matter.
+        </p>
+    </section>
+
+
+    <!-- Features Section -->
+    <section class="features">
+
+        <div class="feature-card">
+            <div class="icon">🤝</div>
+            <h3>Connect</h3>
+            <p>
+                Find organizations and communities that match your passion.
+            </p>
+        </div>
+
+
+        <div class="feature-card">
+            <div class="icon">🌎</div>
+            <h3>Serve</h3>
+            <p>
+                Participate in projects that bring meaningful change.
+            </p>
+        </div>
+
+
+        <div class="feature-card">
+            <div class="icon">⭐</div>
+            <h3>Grow</h3>
+            <p>
+                Build skills, friendships, and unforgettable experiences.
+            </p>
+        </div>
+
+    </section>
+
+
+    <!-- Call To Action -->
+    <section class="cta">
+
+        <h2>
+            Ready to make an impact?
+        </h2>
+
+        <p>
+            Join thousands of volunteers working together to improve lives.
+        </p>
+
+        <a href="/organizations" class="btn primary-btn">
+            Get Started Today
+        </a>
+
+    </section>
+
+
 </main>
+
 
 <%- include('partials/footer') %>

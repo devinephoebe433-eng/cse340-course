@@ -1,22 +1,80 @@
 <%- include('partials/header') %>
+
 <link rel="stylesheet" href="/css/styles.css">
 
-<main>
-    <h1><%= title %></h1>
-    <div class="organizations-grid">
-        <div class="org-card">
-            <h2>Organization 1</h2>
-            <p>Home of Poetry Organization</p>
-        </div>
-        <div class="org-card">
-            <h2>Organization 2 </h2>
-            <p>Home of Creative Writing Society</p>
-        </div>
-        <div class="org-card">
-            <h2>Organization 3</h2>
-            <p>Home of Arts and Crafts</p>
-        </div>
-    </div>
+<main class="organizations-page">
+
+    <section class="hero">
+        <h1><%= title %></h1>
+        <p>
+            Explore our partner organizations that inspire creativity,
+            learning, and community engagement.
+        </p>
+    </section>
+
+    <section class="organizations-grid">
+
+        <article class="org-card">
+            <img src="/images/poetry.jpg" alt="Poetry Organization">
+
+            <div class="org-content">
+                <h2>Home of Poetry</h2>
+
+                <p class="category">
+                    Literature & Poetry
+                </p>
+
+                <p>
+                    A welcoming organization that encourages poets to
+                    share their work, collaborate, and participate in
+                    workshops and community events.
+                </p>
+
+                <a href="#" class="btn">Learn More</a>
+            </div>
+        </article>
+
+        <article class="org-card">
+            <img src="/images/creative.jpg" alt="Creative Writing">
+
+            <div class="org-content">
+                <h2>Creative Writing Society</h2>
+
+                <p class="category">
+                    Storytelling
+                </p>
+
+                <p>
+                    Bringing together aspiring writers through
+                    competitions, writing challenges, mentoring, and
+                    publishing opportunities.
+                </p>
+
+                <a href="#" class="btn">Learn More</a>
+            </div>
+        </article>
+
+        <article class="org-card">
+            <img src="/images/artsandcrafts.jpg" alt="Arts and Crafts">
+
+            <div class="org-content">
+                <h2>Arts & Crafts Association</h2>
+
+                <p class="category">
+                    Creative Arts
+                </p>
+
+                <p>
+                    Supporting artists and craft makers with exhibitions,
+                    workshops, and community outreach programs.
+                </p>
+
+                <a href="#" class="btn">Learn More</a>
+            </div>
+        </article>
+
+    </section>
+
 </main>
 
 <%- include('partials/footer') %>

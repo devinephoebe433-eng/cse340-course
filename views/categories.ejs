@@ -1,14 +1,121 @@
 <%- include('partials/header') %>
+
 <link rel="stylesheet" href="/css/styles.css">
 
 <main>
-    <h1><%= title %></h1>
-    <ul class="categories-list">
-        <li>Environmental</li>
-        <li>Educational</li>
-        <li>Community Service</li>
-        <li>Health and Wellness</li>
-    </ul>
+
+    <section class="categories-hero">
+
+        <h1><%= title %></h1>
+
+        <p>
+            Explore different service areas and discover opportunities
+            where you can share your talents, support communities,
+            and create meaningful impact.
+        </p>
+
+    </section>
+
+
+
+    <section class="categories-grid">
+
+
+        <div class="category-card">
+
+            <div class="category-icon">
+                🌱
+            </div>
+
+            <h2>
+                Environmental
+            </h2>
+
+            <p>
+                Protect nature through conservation projects,
+                clean-up activities, and sustainability efforts.
+            </p>
+
+            <a href="/organizations" class="category-btn">
+                Explore Projects
+            </a>
+
+        </div>
+
+
+
+        <div class="category-card">
+
+            <div class="category-icon">
+                📚
+            </div>
+
+            <h2>
+                Educational
+            </h2>
+
+            <p>
+                Help students learn, grow, and gain access
+                to better educational opportunities.
+            </p>
+
+            <a href="/organizations" class="category-btn">
+                Explore Projects
+            </a>
+
+        </div>
+
+
+
+        <div class="category-card">
+
+            <div class="category-icon">
+                🤝
+            </div>
+
+            <h2>
+                Community Service
+            </h2>
+
+            <p>
+                Support local communities through volunteering,
+                outreach programs, and service activities.
+            </p>
+
+            <a href="/organizations" class="category-btn">
+                Explore Projects
+            </a>
+
+        </div>
+
+
+
+        <div class="category-card">
+
+            <div class="category-icon">
+                ❤️
+            </div>
+
+            <h2>
+                Health and Wellness
+            </h2>
+
+            <p>
+                Improve lives by supporting health programs,
+                awareness campaigns, and wellness initiatives.
+            </p>
+
+            <a href="/organizations" class="category-btn">
+                Explore Projects
+            </a>
+
+        </div>
+
+
+    </section>
+
+
 </main>
+
 
 <%- include('partials/footer') %>
