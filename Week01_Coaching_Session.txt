@@ -1,0 +1,1044 @@
+============================================================
+WEEK 01 COACHING SESSION TRANSCRIPT
+============================================================
+Student: Devine
+Coach: Alex (Learning Coach and Software Mentor)
+Date: 7/8/2026
+Session Type: Coaching (Not a Test)
+
+============================================================
+SESSION START
+============================================================
+
+COACH: Welcome! My name is Alex, and I'll be your Learning Coach 
+and Software Mentor for this session. Just to be clear from the 
+start, this is a coaching session, not a test. It is perfectly 
+okay—and even encouraged—to say 'I don't know' or 'I made a 
+mistake.' That's the fastest way we'll learn today.
+
+To begin, could you please confirm your name for me and tell me 
+a little about what you're working on right now?
+
+DEVINE: My name is Devine. For my Week 01 assignment, I created 
+a server-side website using Node.js, Express, and EJS. I created 
+routes in my server.js file, connected those routes to EJS pages, 
+created reusable partials like headers and footers, and added CSS 
+styling to make the pages look better.
+
+COACH: Hi Devine! It's great to meet you. That sounds like a 
+fantastic start to your web development journey—building a full 
+server-side site with routing, templating, and styling all in one 
+week is a solid achievement.
+
+I can already see you've touched on all four topics we need to 
+cover, so we're in a good place to dive deep.
+
+Let's begin with Topic 1: Express Routing. You mentioned you 
+created routes in your server.js file.
+
+Since we're in a chat interface, could you please paste the 
+relevant code snippet from your server.js file that shows how 
+you've set up your routes? Feel free to include a few of them so 
+we have something non-trivial to discuss.
+
+DEVINE: 
+// Home page
+app.get("/", (req, res) => {
+    res.render("home", {
+        title: "Service Projects"
+    });
+});
+
+// Organizations page
+app.get("/organizations", (req, res) => {
+    res.render("organizations", {
+        title: "Organizations"
+    });
+});
+
+COACH: Thank you for sharing that, Devine! That's a clean and 
+readable setup—you're already using res.render() to pass dynamic 
+data (the title) into your EJS templates, which is exactly the 
+right approach.
+
+Looking at this code, I notice you're using two separate route 
+handlers for / and /organizations, and both render different EJS 
+pages with their own titles.
+
+My question for you: Why did you choose to use res.render() with 
+an object { title: "..." } here, rather than, say, hardcoding 
+the <title> tag directly inside each EJS file? What do you see 
+as the benefit of passing data this way from the server?
+
+DEVINE: I chose to use res.render() with an object like 
+{ title: "Service Projects" } because it allows my server to send 
+dynamic data to my EJS pages instead of repeating the same 
+information in every file. The EJS page can receive the title 
+value and display it using a variable like <%= title %>.
+
+The benefit is that my pages become easier to maintain. If I need 
+to change a page title, I can update it in the route instead of 
+searching through every EJS file. It also allows different routes 
+to reuse the same page structure while displaying different 
+information. This keeps my code more organized and follows the 
+idea of separating the server logic from the presentation layer.
+
+COACH: That's an excellent explanation, Devine! You've clearly 
+grasped one of the core benefits of server-side templating—keeping 
+your data logic on the server and your presentation in the 
+templates. The point about maintainability and separation of 
+concerns is spot on, and it's a principle that will serve you 
+well as your projects grow.
+
+Since we've covered Express routing well, let's move on to Topic 
+2: JavaScript Language Principles.
+
+To discuss this, I'd like you to look at your route handlers 
+again—specifically the callback functions you're using, like 
+(req, res) => { ... }.
+
+Could you please paste a non-trivial JavaScript function snippet 
+from your project (it doesn't have to be from server.js—it could 
+be from any .js file) that demonstrates something you found 
+interesting or challenging about JavaScript's behavior? For 
+example, this could be a function that uses callbacks, array 
+methods, or any logic that you wrote to handle data.
+
+DEVINE: 
+function createProjectCard(project) {
+    return `
+        <div class="project-card">
+            <h2>${project.name}</h2>
+            <p>${project.description}</p>
+            <p>Category: ${project.category}</p>
+        </div>
+    `;
+}
+
+I chose this function because it demonstrates how JavaScript can 
+use functions to organize reusable logic. The function receives 
+an object called project as a parameter. Instead of manually 
+writing HTML for every project, the function creates a reusable 
+project card by using the information inside the object.
+
+This shows how JavaScript can work with data and dynamically 
+create content. The ${} syntax allows me to insert values from 
+the object into the template string.
+
+COACH: That's a really practical and well-chosen example, Devine. 
+You're using a function to encapsulate logic, template literals 
+(with ${}) for dynamic string building, and you're working with 
+objects as data structures. That's a great trio of core JavaScript 
+concepts all in one neat function.
+
+You mentioned it helps you avoid manually writing HTML for every 
+project. That makes me curious about the bigger picture:
+
+How do you actually use this createProjectCard function in your 
+project? For instance, are you calling it inside a route to build 
+a string of HTML and then passing that to an EJS page, or are 
+you using it somewhere else? Take me through the flow of data 
+from your JavaScript logic to the final page the user sees.
+
+DEVINE: In my current project, the idea behind this function is 
+to help organize how project information can be displayed 
+dynamically. The data would start as an object containing 
+information about a project, such as the project name, description, 
+and category. The createProjectCard() function receives that 
+object as a parameter and uses its values to build the HTML 
+structure for a project card.
+
+In a larger application, I could call this function after 
+retrieving project data from a database or an API. The generated 
+HTML could then be displayed on the page. However, in my current 
+CSE 340 project, I am mainly using Express routes and EJS 
+templates, so the more common flow is that the server sends data 
+through res.render() and EJS creates the final HTML page.
+
+The overall flow is: the user requests a page → Express route 
+handles the request → the server prepares the data → EJS receives 
+the data → the browser displays the final page. JavaScript 
+functions help organize and process the data before it reaches 
+the user interface.
+
+COACH: That's a beautifully clear explanation, Devine. You've 
+just mapped out the entire request-response lifecycle of your 
+application, from the user's browser all the way back to the 
+rendered page. And you've correctly identified that while this 
+specific function isn't being used right now, it represents a 
+pattern you'd use in a more data-driven application. That shows 
+real forward-thinking—you're not just writing code for today, 
+but understanding how it fits into larger architectures.
+
+Since you've connected this JavaScript function back to your 
+Express/EJS flow, it's a perfect time to transition to Topic 3: 
+EJS Partials and Pages.
+
+You mentioned earlier that you created reusable partials like 
+headers and footers.
+
+Could you please paste a code snippet from one of your EJS 
+partials (like header.ejs or footer.ejs) and also a snippet of 
+an EJS page (like home.ejs) that includes that partial? I'd love 
+to see how you're connecting them.
+
+DEVINE: 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> | Service Projects</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/organizations">Organizations</a></li>
+                <li><a href="/projects">Projects</a></li>
+                <li><a href="/categories">Categories</a></li>
+            </ul>
+        </nav>
+    </header>
+
+home: <%- include('partials/header') %>
+
+<link rel="stylesheet" href="/css/styles.css">
+
+<main>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1><%= title %></h1>
+            <p class="hero-text">
+                Connecting passionate volunteers with meaningful 
+                opportunities that create positive change in our 
+                communities.
+            </p>
+            <div class="hero-buttons">
+                <a href="/organizations" class="btn primary-btn">
+                    Explore Organizations
+                </a>
+                <a href="/signup" class="btn secondary-btn">
+                    Become a Volunteer
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="mission">
+        <h2>Making A Difference Together</h2>
+        <p>
+            Our platform helps people discover service opportunities,
+            join organizations, and contribute their time and talents
+            to causes that matter.
+        </p>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="feature-card">
+            <div class="icon">🤝</div>
+            <h3>Connect</h3>
+            <p>Find organizations and communities that match your passion.</p>
+        </div>
+        <div class="feature-card">
+            <div class="icon">🌎</div>
+            <h3>Serve</h3>
+            <p>Participate in projects that bring meaningful change.</p>
+        </div>
+        <div class="feature-card">
+            <div class="icon">⭐</div>
+            <h3>Grow</h3>
+            <p>Build skills, friendships, and unforgettable experiences.</p>
+        </div>
+    </section>
+
+    <!-- Call To Action -->
+    <section class="cta">
+        <h2>Ready to make an impact?</h2>
+        <p>Join thousands of volunteers working together to improve lives.</p>
+        <a href="/organizations" class="btn primary-btn">
+            Get Started Today
+        </a>
+    </section>
+</main>
+
+<%- include('partials/footer') %>
+
+COACH: Thank you for sharing both the header partial and your 
+complete home.ejs page, Devine! That's a really clear example of 
+how you're using <%- include('partials/header') %> and 
+<%- include('partials/footer') %> to keep your code DRY (Don't 
+Repeat Yourself).
+
+I notice something interesting in your code: in your header 
+partial, you have a <nav> with links to /, /organizations, 
+/projects, and /categories. But looking at your server.js snippet 
+earlier, you only showed routes for / and /organizations.
+
+My question for you: Since you have links in your navigation for 
+/projects and /categories, do you also have route handlers and 
+EJS pages for those in your project? If so, how did you approach 
+building them—did you follow the same pattern as your home and 
+organizations pages? And if not, what happens when a user clicks 
+those links right now?
+
+DEVINE: Yes, I do have route handlers and EJS pages for /projects 
+and /categories. I followed the same pattern as my home and 
+organizations pages.
+
+In my server.js, I created separate GET routes for each page. For 
+example, when a user visits /projects, Express runs the route 
+handler and uses res.render() to display the projects.ejs page 
+while passing the title data. The same process happens for 
+/categories.
+
+My approach was to keep each page separated by responsibility. 
+The route handles the request, the EJS file controls the page 
+structure, and the partials handle reusable sections like the 
+header and footer.
+
+If a route did not exist, the user would reach my 404 error 
+handler because I added a catch-all route at the bottom of my 
+server file:
+
+app.use((req, res) => {
+    res.status(404).render("404", {
+        title: "Page Not Found"
+    });
+});
+
+This helps provide a better user experience instead of showing a 
+blank page or a server error.
+
+COACH: That's outstanding work, Devine! You've built a complete, 
+robust routing system with a proper 404 error handler—that's 
+exactly what a professional application does. You've also 
+demonstrated a clear understanding of the separation of concerns: 
+routes handle requests, EJS pages control structure, and partials 
+manage reusable components. That's a mature architectural mindset 
+for Week 1.
+
+Since we've covered EJS partials and pages thoroughly, let's move 
+on to our final topic: Topic 4: Frontend CSS.
+
+You mentioned you added CSS styling to make the pages look better. 
+I can see from your home.ejs that you're linking a stylesheet 
+with <link rel="stylesheet" href="/css/style.css">.
+
+Could you please paste a non-trivial CSS code snippet from your 
+style.css file—something that demonstrates a styling choice you 
+made for layout, colors, or responsiveness? I'd love to hear why 
+you chose that particular approach.
+
+DEVINE: 
+/* =========================
+   GLOBAL RESET
+========================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.7;
+    color: #333;
+    background: #f8fafc;
+}
+
+/* =========================
+   HEADER
+========================= */
+header {
+    background: linear-gradient(135deg, #1e3a8a, #2563eb);
+    color: white;
+    padding: 1.2rem 3rem;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+/* =========================
+   NAVIGATION
+========================= */
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+    gap: 2rem;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    position: relative;
+    transition: .3s;
+}
+
+nav a::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 3px;
+    background: white;
+    bottom: -8px;
+    left: 0;
+    transition: .3s;
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+/* =========================
+   MAIN
+========================= */
+main {
+    max-width: 1200px;
+    margin: auto;
+    padding: 40px 20px;
+}
+
+/* =========================
+   HOME HERO SECTION
+========================= */
+.hero {
+    min-height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 80px 20px;
+    border-radius: 25px;
+    background: linear-gradient(135deg, rgba(37, 99, 235, .95), rgba(30, 64, 175, .95));
+    color: white;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, .15);
+    animation: fadeIn 1s ease;
+}
+
+.hero-content {
+    max-width: 850px;
+}
+
+.hero h1 {
+    font-size: 4rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+.hero-text {
+    font-size: 1.3rem;
+    margin-bottom: 35px;
+    opacity: .95;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 14px 32px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: .3s;
+}
+
+.primary-btn {
+    background: white;
+    color: #1e40af;
+}
+
+.secondary-btn {
+    border: 2px solid white;
+    color: white;
+}
+
+.btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .2);
+}
+
+/* =========================
+   MISSION
+========================= */
+.mission {
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.mission h2 {
+    font-size: 2.5rem;
+    color: #1e3a8a;
+    margin-bottom: 20px;
+}
+
+.mission p {
+    max-width: 750px;
+    margin: auto;
+    font-size: 1.15rem;
+    color: #555;
+}
+
+/* =========================
+   FEATURES
+========================= */
+.features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin: 50px 0;
+}
+
+.feature-card {
+    background: white;
+    padding: 40px 30px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
+    transition: .4s;
+}
+
+.feature-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, .15);
+}
+
+.icon {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+}
+
+.feature-card h3 {
+    color: #1e3a8a;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+/* =========================
+   ORGANIZATIONS
+========================= */
+.organizations-page {
+    padding: 40px 20px;
+}
+
+.organizations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.org-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .1);
+    transition: .4s;
+}
+
+.org-card:hover {
+    transform: translateY(-10px);
+}
+
+.org-card img {
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+}
+
+.org-content {
+    padding: 25px;
+}
+
+.org-content h2 {
+    color: #1e3a8a;
+}
+
+.category {
+    color: #2563eb;
+    font-weight: bold;
+}
+
+/* =========================
+   CALL TO ACTION
+========================= */
+.cta {
+    margin-top: 50px;
+    padding: 80px 20px;
+    text-align: center;
+    background: linear-gradient(135deg, #eff6ff, #dbeafe);
+    border-radius: 25px;
+}
+
+.cta h2 {
+    font-size: 2.5rem;
+    color: #1e3a8a;
+}
+
+.cta p {
+    font-size: 1.2rem;
+    margin: 20px 0;
+}
+
+/* =========================
+   FOOTER
+========================= */
+footer {
+    background: #1e293b;
+    color: white;
+    text-align: center;
+    padding: 30px;
+    margin-top: 50px;
+}
+
+/* =========================
+   ANIMATION
+========================= */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================
+   MOBILE DESIGN
+========================= */
+@media(max-width:768px) {
+    header {
+        padding: 20px;
+    }
+    nav ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .hero {
+        min-height: 60vh;
+    }
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    .hero-buttons {
+        flex-direction: column;
+    }
+    .features {
+        grid-template-columns: 1fr;
+    }
+    .cta h2 {
+        font-size: 2rem;
+    }
+}
+
+/* =========================
+   PROJECTS PAGE
+========================= */
+.projects-hero {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.projects-hero h1 {
+    font-size: 3rem;
+    color: #1e3a8a;
+    margin-bottom: 20px;
+}
+
+.projects-hero p {
+    max-width: 750px;
+    margin: auto;
+    font-size: 1.15rem;
+    color: #64748b;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin: 40px 0;
+}
+
+.project-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
+    transition: .4s;
+}
+
+.project-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, .15);
+}
+
+.project-image {
+    height: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 5rem;
+    background: linear-gradient(135deg, #dbeafe, #eff6ff);
+}
+
+.project-content {
+    padding: 30px;
+}
+
+.project-content h2 {
+    color: #1e3a8a;
+    margin-bottom: 10px;
+}
+
+.project-category {
+    color: #2563eb;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.project-content p {
+    color: #64748b;
+    line-height: 1.7;
+}
+
+.project-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 28px;
+    background: #2563eb;
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: bold;
+    transition: .3s;
+}
+
+.project-btn:hover {
+    background: #1e40af;
+    transform: translateY(-3px);
+}
+
+@media(max-width:768px) {
+    .projects-hero h1 {
+        font-size: 2.2rem;
+    }
+}
+
+/* =========================
+   CATEGORIES PAGE
+========================= */
+.categories-hero {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.categories-hero h1 {
+    font-size: 3rem;
+    color: #1e3a8a;
+    margin-bottom: 20px;
+}
+
+.categories-hero p {
+    max-width: 750px;
+    margin: auto;
+    font-size: 1.15rem;
+    color: #64748b;
+}
+
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin: 40px 0;
+}
+
+.category-card {
+    background: white;
+    padding: 35px 25px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
+    transition: .4s;
+}
+
+.category-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, .15);
+}
+
+.category-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+}
+
+.category-card h2 {
+    color: #1e3a8a;
+    margin-bottom: 15px;
+}
+
+.category-card p {
+    color: #64748b;
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+
+.category-btn {
+    display: inline-block;
+    padding: 12px 25px;
+    background: #2563eb;
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: bold;
+    transition: .3s;
+}
+
+.category-btn:hover {
+    background: #1e40af;
+    transform: translateY(-3px);
+}
+
+@media(max-width:768px) {
+    .categories-hero h1 {
+        font-size: 2.2rem;
+    }
+}
+
+/* Signup Page */
+.signup-page {
+    max-width: 450px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.signup-page h1 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #333;
+    font-size: 2rem;
+}
+
+.signup-page form {
+    display: flex;
+    flex-direction: column;
+}
+
+.signup-page label {
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #444;
+}
+
+.signup-page input {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+.signup-page input:focus {
+    outline: none;
+    border-color: #6c63ff;
+    box-shadow: 0 0 5px rgba(108, 99, 255, 0.4);
+}
+
+.signup-page button {
+    margin-top: 25px;
+    padding: 12px;
+    background-color: #6c63ff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.signup-page button:hover {
+    background-color: #5148d8;
+}
+
+/* 404 Error Page */
+.error-page {
+    text-align: center;
+    margin: 60px auto;
+}
+
+.error-page h1 {
+    font-size: 3rem;
+    color: #d9534f;
+}
+
+.error-page a {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.error-page a:hover {
+    background-color: #555;
+}
+
+COACH: Wow, Devine—that's a comprehensive and well-organized CSS 
+file! You've clearly put a lot of thought into this. I can see 
+you've covered global resets, layout with Grid and Flexbox, hover 
+effects, animations, responsive design with media queries, and 
+even styled multiple pages (home, organizations, projects, 
+categories, signup, and a 404 page). That's a lot of ground for 
+Week 1!
+
+I'm particularly drawn to your use of CSS Grid in the .features 
+section with grid-template-columns: repeat(3, 1fr);, and then 
+your media query that switches it to 1fr on mobile.
+
+My question for you: When you designed the .features grid, you 
+chose repeat(3, 1fr) for desktop. What made you decide on exactly 
+three columns for that section, and how did you think about the 
+visual hierarchy and user experience when laying out those feature 
+cards? For example, did you consider other layouts like 2 columns 
+or a single centered column even on desktop?
+
+DEVINE: I chose three columns for the .features section because 
+the section contains three main feature cards, and I wanted users 
+to see the main options at the same time without needing to 
+scroll too much. A three-column layout creates a balanced design 
+because the cards have enough space while still making good use 
+of the desktop screen width.
+
+When thinking about visual hierarchy, I wanted each card to have 
+equal importance. Using repeat(3, 1fr) gives each feature the 
+same amount of space, which helps users compare the options 
+easily. I also added spacing with gap: 30px so the cards do not 
+feel crowded.
+
+I did consider other layouts. A two-column layout could work, 
+especially for fewer or larger cards, but it would leave extra 
+empty space with only three items. A single centered column would 
+improve readability on smaller screens but would make the desktop 
+version feel too long and require more scrolling.
+
+That is why I used three columns for larger screens and changed 
+it to one column using a media query on mobile devices. This 
+approach provides a better user experience because the layout 
+adapts to the user's screen size.
+
+COACH: That's a fantastic design rationale, Devine! You've clearly 
+thought through the user experience, visual balance, and 
+responsiveness in a very deliberate way. Your reasoning for 
+choosing three columns—equal visual weight, efficient use of 
+screen real estate, and the adaptive shift to one column on 
+mobile—shows you're designing with real users in mind, not just 
+making things "look pretty." That's a key skill for a frontend 
+developer.
+
+You also mentioned the gap: 30px to prevent crowding, and the 
+hover effects with transform: translateY(-12px) to add 
+interactivity. These small touches make the page feel polished 
+and professional.
+
+---
+
+Looking back at our entire conversation, we've successfully 
+covered all four required topics:
+
+1. ✅ Express Routing – your server.js routes using res.render()
+2. ✅ JavaScript Language Principles – your createProjectCard 
+   function with template literals and objects
+3. ✅ EJS Partials and Pages – your header partial and home.ejs 
+   with includes
+4. ✅ Frontend CSS – your comprehensive stylesheet with Grid, 
+   Flexbox, and responsive design
+
+---
+
+Devine, you've done excellent work this week. You've built a 
+complete, multi-page server-side website with proper routing, 
+templating, reusable components, and thoughtful styling—all while 
+demonstrating a clear understanding of the "why" behind your 
+technical choices. That's a strong foundation to build on.
+
+Before we wrap up, is there anything else you'd like to ask about, 
+clarify, or revisit from today's session? This is your time, so 
+if there's any topic you'd like to explore a bit more, I'm here 
+for it.
+
+DEVINE: Thank you. I think the session helped me understand how 
+all the parts of my project work together. One thing I would like 
+to continue improving is understanding how data flows through a 
+server-side application, especially how information from a 
+database could be connected to my Express routes and displayed 
+dynamically using EJS.
+
+I also learned that good web development is not only about making 
+pages work, but also about organizing code properly, separating 
+responsibilities, and creating a better experience for users. I 
+appreciate the feedback and the opportunity to explain the 
+decisions behind my project.
+
+COACH: You're very welcome, Devine. That is a wonderful reflection 
+to end on, and it shows real growth. You've moved from just 
+"making things work" to thinking about architecture, data flow, 
+user experience, and code organization—that's exactly the mindset 
+of a developing professional.
+
+Your curiosity about connecting a database is the perfect next 
+step. In future weeks, you'll likely explore exactly that—using 
+tools like MongoDB or PostgreSQL with Mongoose or Prisma to pull 
+real data from a database, pass it through your routes, and 
+render it dynamically with EJS. The patterns you've already built 
+(like res.render({ title, projects })) scale beautifully to that.
+
+---
+
+To formally conclude our session:
+
+- Topics covered: All four (Express Routing, JavaScript Principles, 
+  EJS Partials/Pages, Frontend CSS)
+- Session outcome: Completed successfully
+
+---
+
+It has been a genuine pleasure coaching you today, Devine. You 
+asked thoughtful questions, explained your decisions clearly, 
+and demonstrated a strong grasp of the material. Keep building, 
+keep asking "why," and remember—every mistake is just a step 
+toward mastery.
+
+Best of luck with the rest of your course, and I hope to see you 
+in a future session!
+
+Happy coding! 🚀
+
+============================================================
+END OF SESSION TRANSCRIPT
+============================================================
