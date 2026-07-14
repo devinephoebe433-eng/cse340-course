@@ -78,6 +78,7 @@ VALUES
 
 
 
+
 -- ADD CATEGORIES
 
 INSERT INTO categories
