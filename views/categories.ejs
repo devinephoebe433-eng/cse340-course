@@ -2,6 +2,7 @@
 
 <link rel="stylesheet" href="/css/styles.css">
 
+
 <main>
 
     <section class="categories-hero">
@@ -17,8 +18,10 @@
     </section>
 
 
-
     <section class="categories-grid">
+
+
+        <% categories.forEach(category => { %>
 
 
         <div class="category-card">
@@ -27,89 +30,27 @@
                 🌱
             </div>
 
+
             <h2>
-                Environmental
+                <%= category.category_name %>
             </h2>
 
+
             <p>
-                Protect nature through conservation projects,
-                clean-up activities, and sustainability efforts.
+                Discover service projects related to
+                <%= category.category_name %>.
             </p>
 
-            <a href="/organizations" class="category-btn">
+
+            <a href="/projects" class="category-btn">
                 Explore Projects
             </a>
+
 
         </div>
 
 
-
-        <div class="category-card">
-
-            <div class="category-icon">
-                📚
-            </div>
-
-            <h2>
-                Educational
-            </h2>
-
-            <p>
-                Help students learn, grow, and gain access
-                to better educational opportunities.
-            </p>
-
-            <a href="/organizations" class="category-btn">
-                Explore Projects
-            </a>
-
-        </div>
-
-
-
-        <div class="category-card">
-
-            <div class="category-icon">
-                🤝
-            </div>
-
-            <h2>
-                Community Service
-            </h2>
-
-            <p>
-                Support local communities through volunteering,
-                outreach programs, and service activities.
-            </p>
-
-            <a href="/organizations" class="category-btn">
-                Explore Projects
-            </a>
-
-        </div>
-
-
-
-        <div class="category-card">
-
-            <div class="category-icon">
-                ❤️
-            </div>
-
-            <h2>
-                Health and Wellness
-            </h2>
-
-            <p>
-                Improve lives by supporting health programs,
-                awareness campaigns, and wellness initiatives.
-            </p>
-
-            <a href="/organizations" class="category-btn">
-                Explore Projects
-            </a>
-
-        </div>
+        <% }) %>
 
 
     </section>

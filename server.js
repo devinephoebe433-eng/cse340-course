@@ -1,6 +1,7 @@
 import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
+import { getAllCategories } from "./src/models/categories.js";
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -86,18 +87,33 @@ app.get("/projects", (req, res) => {
 
 
 
-// Categories page
-app.get("/categories", (req, res) => {
+// Categories page (DATABASE CONNECTED)
+app.get("/categories", async (req, res) => {
 
-    res.render("categories", {
-        title: "Service Project Categories"
-    });
+    try {
+
+        const categories = await getAllCategories();
+
+        res.render("categories", {
+            title: "Service Project Categories",
+            categories
+        });
+
+    } catch (error) {
+
+        console.log(error);
+
+        res.status(500).send(
+            "Database Error"
+        );
+
+    }
 
 });
 
 
 
-// Contact page (optional)
+// Contact page
 app.get("/contact", (req, res) => {
 
     res.render("contact", {
@@ -108,7 +124,7 @@ app.get("/contact", (req, res) => {
 
 
 
-// Signup page (optional)
+// Signup page
 app.get("/signup", (req, res) => {
 
     res.render("signup", {
@@ -130,7 +146,6 @@ app.use((req, res) => {
     });
 
 });
-
 
 
 
