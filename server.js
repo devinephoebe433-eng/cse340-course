@@ -2,6 +2,8 @@ import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
 import { getAllCategories } from "./src/models/categories.js";
+import { getAllProjects } from "./src/models/projects.js";
+import { getAllOrganizations } from "./src/models/organizations.js";
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -65,23 +67,37 @@ app.get("/", (req, res) => {
 
 
 
-// Organizations page
-app.get("/organizations", (req, res) => {
+// Organizations page (DATABASE CONNECTED)
+app.get("/organizations", async (req, res) => {
 
-    res.render("organizations", {
-        title: "Organizations"
-    });
+    try {
+        const organizations = await getAllOrganizations();
+        res.render("organizations", {
+            title: "Organizations",
+            organizations
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Database Error");
+    }
 
 });
 
 
 
-// Projects page
-app.get("/projects", (req, res) => {
+// Projects page (DATABASE CONNECTED)
+app.get("/projects", async (req, res) => {
 
-    res.render("projects", {
-        title: "Service Projects"
-    });
+    try {
+        const projects = await getAllProjects();
+        res.render("projects", {
+            title: "Service Projects",
+            projects
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Database Error");
+    }
 
 });
 

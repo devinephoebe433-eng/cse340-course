@@ -14,64 +14,29 @@
 
     <section class="organizations-grid">
 
-        <article class="org-card">
-            <img src="/images/poetry.jpg" alt="Poetry Organization">
+        <% if (organizations && organizations.length > 0) { %>
+            <% organizations.forEach(org => { %>
+                <article class="org-card">
+                    <img src="<%= org.logo || '/images/default-org.jpg' %>" alt="<%= org.organization_name %>">
 
-            <div class="org-content">
-                <h2>Home of Poetry</h2>
+                    <div class="org-content">
+                        <h2><%= org.organization_name %></h2>
 
-                <p class="category">
-                    Literature & Poetry
-                </p>
+                        <p class="contact-email">
+                            <strong>Contact:</strong> <%= org.contact_email %>
+                        </p>
 
-                <p>
-                    A welcoming organization that encourages poets to
-                    share their work, collaborate, and participate in
-                    workshops and community events.
-                </p>
+                        <p>
+                            <%= org.description %>
+                        </p>
 
-                <a href="#" class="btn">Learn More</a>
-            </div>
-        </article>
-
-        <article class="org-card">
-            <img src="/images/creative.jpg" alt="Creative Writing">
-
-            <div class="org-content">
-                <h2>Creative Writing Society</h2>
-
-                <p class="category">
-                    Storytelling
-                </p>
-
-                <p>
-                    Bringing together aspiring writers through
-                    competitions, writing challenges, mentoring, and
-                    publishing opportunities.
-                </p>
-
-                <a href="#" class="btn">Learn More</a>
-            </div>
-        </article>
-
-        <article class="org-card">
-            <img src="/images/artsandcrafts.jpg" alt="Arts and Crafts">
-
-            <div class="org-content">
-                <h2>Arts & Crafts Association</h2>
-
-                <p class="category">
-                    Creative Arts
-                </p>
-
-                <p>
-                    Supporting artists and craft makers with exhibitions,
-                    workshops, and community outreach programs.
-                </p>
-
-                <a href="#" class="btn">Learn More</a>
-            </div>
-        </article>
+                        <a href="#" class="btn">Learn More</a>
+                    </div>
+                </article>
+            <% }) %>
+        <% } else { %>
+            <p>No organizations found.</p>
+        <% } %>
 
     </section>
 
