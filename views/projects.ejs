@@ -20,6 +20,7 @@
             </p>
 
 
+<<<<<<< HEAD
         </section>
 
 
@@ -29,9 +30,38 @@
 
             <% projects.forEach(project=> { %>
 
+=======
+        <% if (projects && projects.length > 0) { %>
+            <% projects.forEach(project => { %>
+                <div class="project-card">
+
+                    <div class="project-image">
+                        🚀
+                    </div>
+
+                    <div class="project-content">
+
+                        <h2>
+                            <%= project.project_name %>
+                        </h2>
+
+                        <p class="project-org">
+                            <strong>Organization:</strong> <%= project.organization_name %>
+                        </p>
+
+                        <p class="project-meta">
+                            <strong>Location:</strong> <%= project.location %> | 
+                            <strong>Date:</strong> <%= project.date ? new Date(project.date).toLocaleDateString() : 'TBD' %>
+                        </p>
+
+                        <p>
+                            <%= project.project_description %>
+                        </p>
+>>>>>>> 6da28009ab39d7c696f29c895ebf18d55d2eb4d8
 
                 <div class="project-card">
 
+<<<<<<< HEAD
 
                     <div class="project-image">
                         🌱
@@ -96,3 +126,24 @@
 
 
     <%- include('partials/footer') %>
+=======
+                        <a href="/organizations" class="project-btn">
+                            Join Project
+                        </a>
+
+                    </div>
+
+                </div>
+            <% }) %>
+        <% } else { %>
+            <p>No projects found.</p>
+        <% } %>
+
+    </section>
+
+
+</main>
+
+
+<%- include('partials/footer') %>
+>>>>>>> 6da28009ab39d7c696f29c895ebf18d55d2eb4d8

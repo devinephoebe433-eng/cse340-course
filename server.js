@@ -4,6 +4,12 @@ import projectRoutes from "./routes/projects.js";
 import categoryRoutes from "./routes/categories.js";
 import path from "path";
 import { fileURLToPath } from "url";
+<<<<<<< HEAD
+=======
+import { getAllCategories } from "./src/models/categories.js";
+import { getAllProjects } from "./src/models/projects.js";
+import { getAllOrganizations } from "./src/models/organizations.js";
+>>>>>>> 6da28009ab39d7c696f29c895ebf18d55d2eb4d8
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -81,6 +87,72 @@ app.get("/", (req, res) => {
 // CONTACT PAGE
 // ======================
 
+<<<<<<< HEAD
+=======
+// Organizations page (DATABASE CONNECTED)
+app.get("/organizations", async (req, res) => {
+
+    try {
+        const organizations = await getAllOrganizations();
+        res.render("organizations", {
+            title: "Organizations",
+            organizations
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Database Error");
+    }
+
+});
+
+
+
+// Projects page (DATABASE CONNECTED)
+app.get("/projects", async (req, res) => {
+
+    try {
+        const projects = await getAllProjects();
+        res.render("projects", {
+            title: "Service Projects",
+            projects
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Database Error");
+    }
+
+});
+
+
+
+// Categories page (DATABASE CONNECTED)
+app.get("/categories", async (req, res) => {
+
+    try {
+
+        const categories = await getAllCategories();
+
+        res.render("categories", {
+            title: "Service Project Categories",
+            categories
+        });
+
+    } catch (error) {
+
+        console.log(error);
+
+        res.status(500).send(
+            "Database Error"
+        );
+
+    }
+
+});
+
+
+
+// Contact page
+>>>>>>> 6da28009ab39d7c696f29c895ebf18d55d2eb4d8
 app.get("/contact", (req, res) => {
 
     res.render("contact", {

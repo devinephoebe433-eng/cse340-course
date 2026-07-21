@@ -20,49 +20,64 @@
 
         <section class="organizations-grid">
 
+        <article class="org-card">
+            <img src="/images/poetry.jpg" alt="Poetry Organization">
 
-            <% organizations.forEach(organization=> { %>
+            <div class="org-content">
+                <h2>Home of Poetry</h2>
 
+                <p class="category">
+                    Literature & Poetry
+                </p>
 
-                <article class="org-card">
+                <p>
+                    A welcoming organization that encourages poets to
+                    share their work, collaborate, and participate in
+                    workshops and community events.
+                </p>
 
+                <a href="#" class="btn">Learn More</a>
+            </div>
+        </article>
 
-                    <img src="/images/<%= organization.logo %>" alt="<%= organization.organization_name %>">
+        <article class="org-card">
+            <img src="/images/creative.jpg" alt="Creative Writing">
 
+            <div class="org-content">
+                <h2>Creative Writing Society</h2>
 
-                    <div class="org-content">
+                <p class="category">
+                    Storytelling
+                </p>
 
+                <p>
+                    Bringing together aspiring writers through
+                    competitions, writing challenges, mentoring, and
+                    publishing opportunities.
+                </p>
 
-                        <h2>
-                            <%= organization.organization_name %>
-                        </h2>
+                <a href="#" class="btn">Learn More</a>
+            </div>
+        </article>
 
+        <article class="org-card">
+            <img src="/images/artsandcrafts.jpg" alt="Arts and Crafts">
 
-                        <p class="category">
-                            Organization
-                        </p>
+            <div class="org-content">
+                <h2>Arts & Crafts Association</h2>
 
+                <p class="category">
+                    Creative Arts
+                </p>
 
-                        <p>
-                            <%= organization.description %>
-                        </p>
+                <p>
+                    Supporting artists and craft makers with exhibitions,
+                    workshops, and community outreach programs.
+                </p>
 
-
-                        <p>
-                            Email:
-                            <%= organization.contact_email %>
-                        </p>
-
-
-                        <a href="/projects" class="btn">
-                            View Projects
-                        </a>
-
-
-                    </div>
-
-
-                </article>
+                <a href="#" class="btn">Learn More</a>
+            </div>
+        </article>
 
 
                 <% }) %>
@@ -74,4 +89,4 @@
     </main>
 
 
-    <%- include('partials/footer') %>
+<%- include('partials/footer') %>
