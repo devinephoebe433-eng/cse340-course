@@ -1,80 +1,77 @@
 <%- include('partials/header') %>
 
-<link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/styles.css">
 
-<main class="organizations-page">
+    <main class="organizations-page">
 
-    <section class="hero">
-        <h1><%= title %></h1>
-        <p>
-            Explore our partner organizations that inspire creativity,
-            learning, and community engagement.
-        </p>
-    </section>
+        <section class="hero">
 
-    <section class="organizations-grid">
+            <h1>
+                <%= title %>
+            </h1>
 
-        <article class="org-card">
-            <img src="/images/poetry.jpg" alt="Poetry Organization">
+            <p>
+                Explore our partner organizations that inspire creativity,
+                learning, and community engagement.
+            </p>
 
-            <div class="org-content">
-                <h2>Home of Poetry</h2>
+        </section>
 
-                <p class="category">
-                    Literature & Poetry
-                </p>
 
-                <p>
-                    A welcoming organization that encourages poets to
-                    share their work, collaborate, and participate in
-                    workshops and community events.
-                </p>
+        <section class="organizations-grid">
 
-                <a href="#" class="btn">Learn More</a>
-            </div>
-        </article>
 
-        <article class="org-card">
-            <img src="/images/creative.jpg" alt="Creative Writing">
+            <% organizations.forEach(organization=> { %>
 
-            <div class="org-content">
-                <h2>Creative Writing Society</h2>
 
-                <p class="category">
-                    Storytelling
-                </p>
+                <article class="org-card">
 
-                <p>
-                    Bringing together aspiring writers through
-                    competitions, writing challenges, mentoring, and
-                    publishing opportunities.
-                </p>
 
-                <a href="#" class="btn">Learn More</a>
-            </div>
-        </article>
+                    <img src="/images/<%= organization.logo %>" alt="<%= organization.organization_name %>">
 
-        <article class="org-card">
-            <img src="/images/artsandcrafts.jpg" alt="Arts and Crafts">
 
-            <div class="org-content">
-                <h2>Arts & Crafts Association</h2>
+                    <div class="org-content">
 
-                <p class="category">
-                    Creative Arts
-                </p>
 
-                <p>
-                    Supporting artists and craft makers with exhibitions,
-                    workshops, and community outreach programs.
-                </p>
+                        <h2>
+                            <%= organization.organization_name %>
+                        </h2>
 
-                <a href="#" class="btn">Learn More</a>
-            </div>
-        </article>
 
-    </section>
+                        <p class="category">
+                            Organization
+                        </p>
 
-</main>
 
-<%- include('partials/footer') %>
+                        <p>
+                            <%= organization.description %>
+                        </p>
+
+
+                        <p>
+                            Email:
+                            <%= organization.contact_email %>
+                        </p>
+
+
+                        <a href="/projects" class="btn">
+                            View Projects
+                        </a>
+
+
+                    </div>
+
+
+                </article>
+
+
+                <% }) %>
+
+
+        </section>
+
+
+    </main>
+
+
+    <%- include('partials/footer') %>

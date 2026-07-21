@@ -1,7 +1,9 @@
 import express from "express";
+import organizationRoutes from "./routes/organizations.js";
+import projectRoutes from "./routes/projects.js";
+import categoryRoutes from "./routes/categories.js";
 import path from "path";
 import { fileURLToPath } from "url";
-import { getAllCategories } from "./src/models/categories.js";
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -27,7 +29,6 @@ app.set(
 );
 
 
-
 // ======================
 // MIDDLEWARE
 // ======================
@@ -48,13 +49,25 @@ app.use(
 );
 
 
+// Allow JSON data
+app.use(express.json());
+
 
 // ======================
-// ROUTES
+// DATABASE ROUTES
 // ======================
 
+app.use("/organizations", organizationRoutes);
 
-// Home page
+app.use("/projects", projectRoutes);
+
+app.use("/categories", categoryRoutes);
+
+
+// ======================
+// HOME PAGE
+// ======================
+
 app.get("/", (req, res) => {
 
     res.render("home", {
@@ -64,56 +77,10 @@ app.get("/", (req, res) => {
 });
 
 
+// ======================
+// CONTACT PAGE
+// ======================
 
-// Organizations page
-app.get("/organizations", (req, res) => {
-
-    res.render("organizations", {
-        title: "Organizations"
-    });
-
-});
-
-
-
-// Projects page
-app.get("/projects", (req, res) => {
-
-    res.render("projects", {
-        title: "Service Projects"
-    });
-
-});
-
-
-
-// Categories page (DATABASE CONNECTED)
-app.get("/categories", async (req, res) => {
-
-    try {
-
-        const categories = await getAllCategories();
-
-        res.render("categories", {
-            title: "Service Project Categories",
-            categories
-        });
-
-    } catch (error) {
-
-        console.log(error);
-
-        res.status(500).send(
-            "Database Error"
-        );
-
-    }
-
-});
-
-
-
-// Contact page
 app.get("/contact", (req, res) => {
 
     res.render("contact", {
@@ -123,8 +90,10 @@ app.get("/contact", (req, res) => {
 });
 
 
+// ======================
+// SIGNUP PAGE
+// ======================
 
-// Signup page
 app.get("/signup", (req, res) => {
 
     res.render("signup", {
@@ -132,7 +101,6 @@ app.get("/signup", (req, res) => {
     });
 
 });
-
 
 
 // ======================
@@ -146,7 +114,6 @@ app.use((req, res) => {
     });
 
 });
-
 
 
 // ======================

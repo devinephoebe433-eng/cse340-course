@@ -1,0 +1,148 @@
+================================================================================
+                    COACHING SESSION TRANSCRIPT
+                    WEEK 02 – LEARNING COACH SESSION
+                    STUDENT: Nabugobero Devine
+================================================================================
+
+[START OF SESSION]
+
+Coach:
+Welcome! Just to be clear from the start, this is a coaching session, not a test. 
+It is perfectly okay—and even encouraged—to say "I don't know" or "I made a mistake." 
+That's the fastest way we'll learn today.
+
+To begin, could you please confirm your full name and tell me a little about the 
+project or assignment you're working on this week?
+
+---
+
+Nabugobero Devine:
+My name is Nabugobero Devine. I'm working on a small web application that manages 
+student course enrollments. It uses PostgreSQL, Node.js with Express, and EJS for 
+views. I have tables for students, courses, and a junction table for enrollments.
+
+---
+
+Coach:
+Great to meet you, Devine. That sounds like a solid project. Let's start with 
+Topic 1: Relational Database Design. Could you paste a non-trivial SQL query from 
+your project — something that joins at least two tables — and then explain what 
+it does and why you chose that structure?
+
+---
+
+Nabugobero Devine:
+Here's my query:
+
+SELECT students.name, courses.title, enrollments.grade
+FROM enrollments
+JOIN students ON enrollments.student_id = students.id
+JOIN courses ON enrollments.course_id = courses.id
+WHERE students.id = $1;
+
+I chose this because it lets me see all courses a specific student is taking along 
+with their grade. The many-to-many relationship between students and courses is 
+handled by the enrollments junction table, which I think is the cleanest approach.
+
+---
+
+Coach:
+That's a very clean and correct design. The junction table is exactly right for 
+many-to-many. Now for Topic 2: Server-Side Data Access Logic, can you paste the 
+Node.js function that executes that query and handles the database connection — 
+then tell me how the data flows from the DB to your server?
+
+---
+
+Nabugobero Devine:
+Sure:
+
+async function getStudentCourses(studentId) {
+  const query = `
+    SELECT students.name, courses.title, enrollments.grade
+    FROM enrollments
+    JOIN students ON enrollments.student_id = students.id
+    JOIN courses ON enrollments.course_id = courses.id
+    WHERE students.id = $1;
+  `;
+  const result = await pool.query(query, [studentId]);
+  return result.rows;
+}
+
+I use a connection pool from `pg` and export this function. The server calls it, 
+waits for the rows, and then passes the data to the route handler.
+
+---
+
+Coach:
+Perfect — async/await and parameterized queries are excellent practice. Now 
+Topic 3: Express Routing. Paste a specific route declaration from your main server 
+file, and explain its role and the path mapping.
+
+---
+
+Nabugobero Devine:
+Here it is:
+
+app.get('/students/:id/courses', async (req, res) => {
+  const studentId = req.params.id;
+  const courses = await getStudentCourses(studentId);
+  res.render('student_courses', { student: courses[0], courses });
+});
+
+This route maps `/students/:id/courses` to a handler that fetches the student's 
+courses and renders the EJS view. The `:id` is dynamic, so it works for any student.
+
+---
+
+Coach:
+Clean and RESTful — good job. Finally, Topic 4: Client-Side Rendering with EJS. 
+Paste a specific line of EJS syntax from your template that displays data, and 
+explain how the data flows from the route to the template and then to the browser.
+
+---
+
+Nabugobero Devine:
+From `student_courses.ejs`:
+
+<h1><%= student.name %>'s Courses</h1>
+<ul>
+  <% courses.forEach(c => { %>
+    <li><%= c.title %> - Grade: <%= c.grade || 'Not graded' %></li>
+  <% }); %>
+</ul>
+
+The route passes `{ student, courses }` to `res.render()`. EJS processes the 
+template server-side, injects the data, and sends the final HTML to the client.
+
+---
+
+Coach:
+Excellent work, Devine. You've covered all four topics clearly and shown solid 
+understanding. Your database design is sound, your data access is secure, your 
+routing is logical, and your EJS rendering is clean.
+
+Do you have any final questions or areas you'd like to clarify before we close 
+the session?
+
+---
+
+Nabugobero Devine:
+No, I think I'm good. Thank you!
+
+---
+
+Coach:
+You're welcome. This session is now complete. 
+
+Summary of topics covered:
+✓ Topic 1: Relational Database Design – SQL JOIN query with many-to-many
+✓ Topic 2: Server-Side Data Access – Node.js async function with parameterized query
+✓ Topic 3: Express Routing – Dynamic route with path params and res.render()
+✓ Topic 4: Client-Side Rendering – EJS template with loops and conditionals
+
+Keep up the great work, Devine!
+
+================================================================================
+[END OF SESSION]
+================================================================================
