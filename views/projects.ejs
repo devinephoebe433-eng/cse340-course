@@ -1,143 +1,78 @@
 <%- include('partials/header') %>
 
-    <link rel="stylesheet" href="/css/styles.css">
+<link rel="stylesheet" href="/css/styles.css">
+
+<main>
+
+    <section class="projects-hero">
+
+        <h1><%= title %></h1>
+
+        <p>
+            Discover meaningful service projects where you can volunteer,
+            develop new skills, and create a positive impact in your community.
+        </p>
+
+    </section>
 
 
-    <main>
+    <section class="projects-grid">
 
 
-        <section class="projects-hero">
+        <% projects.forEach(function(project) { %>
 
 
-            <h1>
-                <%= title %>
-            </h1>
+            <div class="project-card">
 
 
-            <p>
-                Discover meaningful service projects where you can volunteer,
-                develop new skills, and create a positive impact.
-            </p>
+                <div class="project-image">
+                    🌱
+                </div>
 
 
-<<<<<<< HEAD
-        </section>
+                <div class="project-content">
 
 
-
-        <section class="projects-grid">
-
-
-            <% projects.forEach(project=> { %>
-
-=======
-        <% if (projects && projects.length > 0) { %>
-            <% projects.forEach(project => { %>
-                <div class="project-card">
-
-                    <div class="project-image">
-                        🚀
-                    </div>
-
-                    <div class="project-content">
-
-                        <h2>
-                            <%= project.project_name %>
-                        </h2>
-
-                        <p class="project-org">
-                            <strong>Organization:</strong> <%= project.organization_name %>
-                        </p>
-
-                        <p class="project-meta">
-                            <strong>Location:</strong> <%= project.location %> | 
-                            <strong>Date:</strong> <%= project.date ? new Date(project.date).toLocaleDateString() : 'TBD' %>
-                        </p>
-
-                        <p>
-                            <%= project.project_description %>
-                        </p>
->>>>>>> 6da28009ab39d7c696f29c895ebf18d55d2eb4d8
-
-                <div class="project-card">
-
-<<<<<<< HEAD
-
-                    <div class="project-image">
-                        🌱
-                    </div>
+                    <h2>
+                        <%= project.project_name %>
+                    </h2>
 
 
-                    <div class="project-content">
+                    <p class="project-category">
+                        Service Project
+                    </p>
 
 
-                        <h2>
-                            <%= project.project_name %>
-                        </h2>
+                    <p>
+                        <%= project.project_description %>
+                    </p>
 
 
-
-                        <p class="project-category">
-                            Service Project
-                        </p>
-
-
-
-                        <p>
-                            <%= project.project_description %>
-                        </p>
+                    <p>
+                        <strong>Location:</strong>
+                        <%= project.location %>
+                    </p>
 
 
-
-                        <p>
-                            Location:
-                            <%= project.location %>
-                        </p>
-
+                    <p>
+                        <strong>Date:</strong>
+                        <%= project.date %>
+                    </p>
 
 
-                        <p>
-                            Date:
-                            <%= project.date %>
-                        </p>
-
-
-
-                        <a href="/organizations" class="project-btn">
-                            Join Project
-                        </a>
-
-
-
-                    </div>
+                    <a href="/organizations" class="project-btn">
+                        Join Project
+                    </a>
 
 
                 </div>
 
 
-                <% }) %>
+            </div>
 
 
+        <% }); %>
 
-        </section>
-
-
-    </main>
-
-
-    <%- include('partials/footer') %>
-=======
-                        <a href="/organizations" class="project-btn">
-                            Join Project
-                        </a>
-
-                    </div>
-
-                </div>
-            <% }) %>
-        <% } else { %>
-            <p>No projects found.</p>
-        <% } %>
 
     </section>
 
@@ -146,4 +81,3 @@
 
 
 <%- include('partials/footer') %>
->>>>>>> 6da28009ab39d7c696f29c895ebf18d55d2eb4d8

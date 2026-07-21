@@ -1,92 +1,61 @@
 <%- include('partials/header') %>
 
-    <link rel="stylesheet" href="/css/styles.css">
+<link rel="stylesheet" href="/css/styles.css">
 
-    <main class="organizations-page">
+<main class="organizations-page">
 
-        <section class="hero">
+    <section class="hero">
+        <h1><%= title %></h1>
 
-            <h1>
-                <%= title %>
-            </h1>
-
-            <p>
-                Explore our partner organizations that inspire creativity,
-                learning, and community engagement.
-            </p>
-
-        </section>
+        <p>
+            Explore our partner organizations that inspire creativity,
+            learning, and community engagement.
+        </p>
+    </section>
 
 
-        <section class="organizations-grid">
+    <section class="organizations-grid">
 
-        <article class="org-card">
-            <img src="/images/poetry.jpg" alt="Poetry Organization">
+        <% organizations.forEach(function(organization) { %>
 
-            <div class="org-content">
-                <h2>Home of Poetry</h2>
+            <article class="org-card">
 
-                <p class="category">
-                    Literature & Poetry
-                </p>
+                <img 
+                    src="/images/<%= organization.logo %>" 
+                    alt="<%= organization.organization_name %>"
+                >
 
-                <p>
-                    A welcoming organization that encourages poets to
-                    share their work, collaborate, and participate in
-                    workshops and community events.
-                </p>
+                <div class="org-content">
 
-                <a href="#" class="btn">Learn More</a>
-            </div>
-        </article>
+                    <h2>
+                        <%= organization.organization_name %>
+                    </h2>
 
-        <article class="org-card">
-            <img src="/images/creative.jpg" alt="Creative Writing">
+                    <p class="category">
+                        Organization
+                    </p>
 
-            <div class="org-content">
-                <h2>Creative Writing Society</h2>
+                    <p>
+                        <%= organization.description %>
+                    </p>
 
-                <p class="category">
-                    Storytelling
-                </p>
+                    <p>
+                        Email:
+                        <%= organization.contact_email %>
+                    </p>
 
-                <p>
-                    Bringing together aspiring writers through
-                    competitions, writing challenges, mentoring, and
-                    publishing opportunities.
-                </p>
+                    <a href="/projects" class="btn">
+                        View Projects
+                    </a>
 
-                <a href="#" class="btn">Learn More</a>
-            </div>
-        </article>
+                </div>
 
-        <article class="org-card">
-            <img src="/images/artsandcrafts.jpg" alt="Arts and Crafts">
+            </article>
 
-            <div class="org-content">
-                <h2>Arts & Crafts Association</h2>
+        <% }); %>
 
-                <p class="category">
-                    Creative Arts
-                </p>
+    </section>
 
-                <p>
-                    Supporting artists and craft makers with exhibitions,
-                    workshops, and community outreach programs.
-                </p>
-
-                <a href="#" class="btn">Learn More</a>
-            </div>
-        </article>
-
-
-                <% }) %>
-
-
-        </section>
-
-
-    </main>
-
+</main>
 
 <%- include('partials/footer') %>
