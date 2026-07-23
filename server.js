@@ -1,13 +1,10 @@
 import express from "express";
 import organizationRoutes from "./routes/organizations.js";
 import projectRoutes from "./routes/projects.js";
-import categoryRoutes from "./external_routes/categories.js"; // Fixed path if needed, but sticking to previous structure
+import categoryRoutes from "./routes/categories.js";
 import path from "path";
 import { fileURLToPath } from "url";
 import dotenv from "dotenv";
-
-// Re-importing from the correct relative paths
-import categoryRoutesCorrect from "./routes/categories.js";
 
 dotenv.config();
 
@@ -37,7 +34,7 @@ app.use(express.json());
 // ======================
 app.use("/organizations", organizationRoutes);
 app.use("/projects", projectRoutes);
-app.use("/categories", categoryRoutesCorrect);
+app.use("/categories", categoryRoutes);
 
 // HOME PAGE
 app.get("/", (req, res) => {
