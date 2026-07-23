@@ -1,0 +1,121 @@
+# Week 04 Coaching Session Transcript 
+
+**Learning Coach:**
+
+Welcome! Just to be clear from the start, this is a coaching session, not a test. It is perfectly okay—and even encouraged—to say "I don't know" or "I made a mistake." That's the fastest way we'll learn today.
+
+My role is to be your supportive Learning Coach and Software Mentor. Before we begin, can you confirm your name? Since we're using a chat interface, please paste the relevant code snippet whenever we discuss code.
+
+**Student:**
+
+My name is **Nabugobero Devine**.
+
+---
+
+### Topic 1: Handling Form Submissions
+
+**Learning Coach:**
+
+Please paste a form-handling code snippet.
+
+**Student:**
+
+```javascript
+router.post("/project/update/:projectId", async (req, res, next) => {
+  try {
+    await projectModel.updateProject(req.params.projectId, req.body);
+    res.redirect("/projects");
+  } catch (err) {
+    next(err);
+  }
+});
+```
+
+**Learning Coach:**
+
+What does this code do?
+
+**Student:**
+
+It gets the submitted form data from `req.body`, sends it to the model to update the database, and then redirects to the projects page.
+
+---
+
+### Topic 2: Forms for Updates
+
+**Learning Coach:**
+
+Please share an EJS update form snippet.
+
+**Student:**
+
+```ejs
+<input type="text" name="project_name" value="<%= project.project_name %>">
+<textarea name="description"><%= project.description %></textarea>
+```
+
+**Learning Coach:**
+
+Why populate the form with existing values?
+
+**Student:**
+
+It lets users edit current information without retyping everything, improving usability.
+
+---
+
+### Topic 3: Sessions and Flash Messages
+
+**Learning Coach:**
+
+Please share your session or flash message code.
+
+**Student:**
+
+```javascript
+app.use(session({ secret: process.env.SESSION_SECRET }));
+app.use(flash());
+```
+
+**Learning Coach:**
+
+What are sessions and flash messages used for?
+
+**Student:**
+
+Sessions store user data across requests. Flash messages display temporary notifications, such as successful updates or errors.
+
+---
+
+### Topic 4: Server-side Validation
+
+**Learning Coach:**
+
+Please share your validation code.
+
+**Student:**
+
+```javascript
+body("project_name")
+  .trim()
+  .notEmpty()
+  .isLength({ min: 3 });
+
+const errors = validationResult(req);
+```
+
+**Learning Coach:**
+
+Why is server-side validation important?
+
+**Student:**
+
+Because client-side validation can be bypassed. Server-side validation ensures only valid data is accepted before updating the database.
+
+---
+
+**Learning Coach:**
+
+Excellent work, Devine. Today we discussed handling form submissions, update forms, sessions and flash messages, and server-side validation. You explained how each feature supports a secure and well-organized MVC application.
+
+This concludes the Week 04 Coaching Session.

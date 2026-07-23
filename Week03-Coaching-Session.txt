@@ -1,0 +1,126 @@
+Week 03 Coaching Session Transcript
+
+Learning Coach:
+Welcome! Just to be clear from the start, this is a coaching session, not a test. It is perfectly okay—and even encouraged—to say "I don't know" or "I made a mistake." That's the fastest way we'll learn today.
+
+My role is to be your supportive Learning Coach and Software Mentor. Before we begin, can you please confirm your name? Since we're using a chat interface, whenever we discuss code, please paste the relevant code snippet into the chat.
+
+Student:
+My name is Nabugobero Devine.
+
+Learning Coach:
+Thank you, Devine. This is a safe learning space where mistakes are part of learning.
+
+Let's begin with models. Please paste a model function that accepts a parameter and includes it in an SQL query.
+
+Student:
+Here is my model function.
+
+async function getProjectsByCategory(categoryId) {
+  const sql = `
+    SELECT p.*, o.name AS organization_name
+    FROM service_projects p
+    JOIN organizations o
+      ON p.organization_id = o.organization_id
+    WHERE p.category_id = $1
+    ORDER BY p.project_name;
+  `;
+  const result = await pool.query(sql, [categoryId]);
+  return result.rows;
+}
+
+Learning Coach:
+Thank you for sharing your code. Can you explain what this function does and why you used a placeholder ($1) instead of inserting the category ID directly into the SQL string?
+
+Student:
+The function retrieves all projects that belong to a selected category. I used the placeholder to prevent SQL injection and because PostgreSQL safely inserts the value into the query.
+
+Learning Coach:
+Great explanation. Using placeholders makes the application more secure and keeps SQL queries reusable.
+
+Now let's discuss views. Please paste an EJS snippet that inserts data into a link.
+
+Student:
+<ul>
+<% projects.forEach(project => { %>
+<li>
+<a href="/project/<%= project.project_id %>">
+<%= project.project_name %>
+</a>
+-
+<a href="/organization/<%= project.organization_id %>">
+<%= project.organization_name %>
+</a>
+</li>
+<% }) %>
+</ul>
+
+Learning Coach:
+Thank you. Can you explain what this EJS code is doing and why you used <%= %> instead of <%- %>?
+
+Student:
+The code loops through each project and creates links for the project and its organization. I used <%= %> because it escapes the output and helps protect against HTML injection.
+
+Learning Coach:
+Excellent. Escaping output is a good security practice.
+
+Now let's discuss controllers. Please paste a route handler that uses a route parameter.
+
+Student:
+router.get("/project/:projectId", async (req, res, next) => {
+  try {
+    const project = await projectModel.getProjectById(
+      req.params.projectId
+    );
+
+    if (!project) {
+      return res.status(404).render("404");
+    }
+
+    res.render("project", {
+      title: project.project_name,
+      project
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
+Learning Coach:
+Thank you. Why did you choose to use a route parameter instead of a query parameter?
+
+Student:
+The project ID is required to identify exactly which project should be displayed. A route parameter makes the URL cleaner and clearly identifies the resource.
+
+Learning Coach:
+That's correct. Route parameters are commonly used when identifying a specific resource.
+
+Finally, let's discuss error handling. Please paste your error-handling code.
+
+Student:
+app.use((req, res) => {
+  res.status(404).render("404", {
+    title: "Page Not Found"
+  });
+});
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+
+  res.status(500).render("500", {
+    title: "Server Error"
+  });
+});
+
+Learning Coach:
+Thank you. Can you explain your strategy for handling errors?
+
+Student:
+The 404 page is displayed whenever a requested route does not exist. The 500 page is displayed whenever an unexpected server error occurs. Logging the error also helps with debugging.
+
+Learning Coach:
+Excellent. That demonstrates a good understanding of Express error handling. You covered models, views, controllers, and error handling. You explained your design decisions and showed how your application safely handles SQL queries, dynamic routing, EJS rendering, and application errors.
+
+This concludes our Week 03 coaching session. Great job discussing your assignment and reflecting on your implementation decisions.
+
+End of Transcript.
