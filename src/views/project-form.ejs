@@ -1,0 +1,67 @@
+<%- include('partials/header') %>
+
+<main class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <nav aria-label="breadcrumb" class="mb-4">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/management">Management</a></li>
+                    <li class="breadcrumb-item active"><%= title %></li>
+                </ol>
+            </nav>
+
+            <div class="card shadow border-0 p-4">
+                <div class="card-body">
+                    <h1 class="h3 fw-bold text-center mb-4"><%= title %></h1>
+                    
+                    <% if (messages.error) { %>
+                        <div class="alert alert-danger"><%= messages.error %></div>
+                    <% } %>
+
+                    <form action="<%= action %>" method="POST">
+                        <div class="row g-3">
+                            <div class="col-md-12 mb-3">
+                                <label for="project_name" class="form-label">Project Name</label>
+                                <input type="text" class="form-control rounded-pill" id="project_name" name="project_name" value="<%= project ? project.project_name : '' %>" required>
+                            </div>
+                            
+                            <div class="col-md-12 mb-3">
+                                <label for="project_description" class="form-label">Description</label>
+                                <textarea class="form-control" id="project_description" name="project_description" rows="4" required><%= project ? project.project_description : '' %></textarea>
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <label for="location" class="form-label">Location</label>
+                                <input type="text" class="form-control rounded-pill" id="location" name="location" value="<%= project ? project.location : '' %>" required>
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <label for="date" class="form-label">Date</label>
+                                <input type="date" class="form-control rounded-pill" id="date" name="date" value="<%= project ? new Date(project.date).toISOString().split('T')[0] : '' %>" required>
+                            </div>
+
+                            <div class="col-md-12 mb-3">
+                                <label for="organization_id" class="form-label">Hosting Organization</label>
+                                <select class="form-select rounded-pill" id="organization_id" name="organization_id" required>
+                                    <option value="" disabled <%= !project ? 'selected' : '' %>>Select an organization</option>
+                                    <% organizations.forEach(org => { %>
+                                        <option value="<%= org.organization_id %>" <%= project && project.organization_id == org.organization_id ? 'selected' : '' %>>
+                                            <%= org.organization_name %>
+                                        </option>
+                                    <% }) %>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary rounded-pill py-2">Save Project</button>
+                            <a href="/management" class="btn btn-outline-secondary rounded-pill py-2">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<%- include('partials/footer') %>

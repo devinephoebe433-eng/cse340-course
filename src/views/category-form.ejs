@@ -1,0 +1,45 @@
+<%- include('partials/header') %>
+
+<main class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <nav aria-label="breadcrumb" class="mb-4">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/management">Management</a></li>
+                    <li class="breadcrumb-item active"><%= title %></li>
+                </ol>
+            </nav>
+
+            <div class="card shadow border-0 p-4">
+                <div class="card-body">
+                    <h1 class="h3 fw-bold text-center mb-4"><%= title %></h1>
+                    
+                    <% if (messages.error) { %>
+                        <div class="alert alert-danger"><%= messages.error %></div>
+                    <% } %>
+
+                    <form action="<%= action %>" method="POST">
+                        <div class="mb-4">
+                            <label for="category_name" class="form-label">Category Name</label>
+                            <input type="text" 
+                                   class="form-control rounded-pill" 
+                                   id="category_name" 
+                                   name="category_name" 
+                                   value="<%= category ? category.category_name : '' %>"
+                                   required 
+                                   maxlength="100">
+                            <div class="form-text">Name must be between 3 and 100 characters.</div>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary rounded-pill py-2">Save Category</button>
+                            <a href="/management" class="btn btn-outline-secondary rounded-pill py-2">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<%- include('partials/footer') %>

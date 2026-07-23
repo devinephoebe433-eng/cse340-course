@@ -1,0 +1,55 @@
+<%- include('partials/header') %>
+
+<main class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <nav aria-label="breadcrumb" class="mb-4">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/management">Management</a></li>
+                    <li class="breadcrumb-item active"><%= title %></li>
+                </ol>
+            </nav>
+
+            <div class="card shadow border-0 p-4">
+                <div class="card-body">
+                    <h1 class="h3 fw-bold text-center mb-4"><%= title %></h1>
+                    
+                    <% if (messages.error) { %>
+                        <div class="alert alert-danger"><%= messages.error %></div>
+                    <% } %>
+
+                    <form action="<%= action %>" method="POST">
+                        <div class="row g-3">
+                            <div class="col-md-12 mb-3">
+                                <label for="organization_name" class="form-label">Organization Name</label>
+                                <input type="text" class="form-control rounded-pill" id="organization_name" name="organization_name" value="<%= organization ? organization.organization_name : '' %>" required>
+                            </div>
+                            
+                            <div class="col-md-12 mb-3">
+                                <label for="description" class="form-label">Description</label>
+                                <textarea class="form-control" id="description" name="description" rows="4" required><%= organization ? organization.description : '' %></textarea>
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <label for="contact_email" class="form-label">Contact Email</label>
+                                <input type="email" class="form-control rounded-pill" id="contact_email" name="contact_email" value="<%= organization ? organization.contact_email : '' %>" required>
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <label for="logo" class="form-label">Logo Filename</label>
+                                <input type="text" class="form-control rounded-pill" id="logo" name="logo" value="<%= organization ? organization.logo : '' %>" placeholder="e.g., logo.png" required>
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary rounded-pill py-2">Save Organization</button>
+                            <a href="/management" class="btn btn-outline-secondary rounded-pill py-2">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<%- include('partials/footer') %>

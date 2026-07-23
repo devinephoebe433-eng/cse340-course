@@ -41,3 +41,21 @@ export async function getProjectsByCategoryId(category_id) {
     const result = await pool.query(sql, [category_id]);
     return result.rows;
 }
+
+/**
+ * Create a new category
+ */
+export async function createCategory(category_name) {
+    const sql = "INSERT INTO categories (category_name) VALUES ($1) RETURNING *";
+    const result = await pool.query(sql, [category_name]);
+    return result.rows[0];
+}
+
+/**
+ * Update an existing category
+ */
+export async function updateCategory(category_id, category_name) {
+    const sql = "UPDATE categories SET category_name = $1 WHERE category_id = $2 RETURNING *";
+    const result = await pool.query(sql, [category_name, category_id]);
+    return result.rows[0];
+}

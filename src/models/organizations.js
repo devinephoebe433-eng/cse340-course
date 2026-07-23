@@ -39,3 +39,21 @@ export async function getProjectsByOrganizationId(organization_id) {
     const result = await pool.query(sql, [organization_id]);
     return result.rows;
 }
+
+/**
+ * Create a new organization
+ */
+export async function createOrganization(organization_name, description, contact_email, logo) {
+    const sql = "INSERT INTO organizations (organization_name, description, contact_email, logo) VALUES ($1, $2, $3, $4) RETURNING *";
+    const result = await pool.query(sql, [organization_name, description, contact_email, logo]);
+    return result.rows[0];
+}
+
+/**
+ * Update an existing organization
+ */
+export async function updateOrganization(organization_id, organization_name, description, contact_email, logo) {
+    const sql = "UPDATE organizations SET organization_name = $1, description = $2, contact_email = $3, logo = $4 WHERE organization_id = $5 RETURNING *";
+    const result = await pool.query(sql, [organization_name, description, contact_email, logo, organization_id]);
+    return result.rows[0];
+}

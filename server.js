@@ -1,4 +1,6 @@
 import express from "express";
+import session from "express-session";
+import flash from "connect-flash";
 import organizationRoutes from "./routes/organizations.js";
 import projectRoutes from "./routes/projects.js";
 import categoryRoutes from "./routes/categories.js";
@@ -29,12 +31,31 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// Session and Flash Middleware
+app.use(session({
+    secret: process.env.SESSION_SECRET || 'secret-key',
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(flash());
+
+// Global variables for flash messages
+app.use((req, res, next) => {
+    res.locals.messages = req.flash();
+    next();
+});
+
 // ======================
 // ROUTES
 // ======================
 app.use("/organizations", organizationRoutes);
 app.use("/projects", projectRoutes);
 app.use("/categories", categoryRoutes);
+
+// MANAGEMENT ROUTE
+app.get("/management", (req, res) => {
+    res.render("management", { title: "Management Console" });
+});
 
 // HOME PAGE
 app.get("/", (req, res) => {

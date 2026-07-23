@@ -1,0 +1,73 @@
+<%- include('partials/header') %>
+
+<main class="container py-5">
+    <div class="row mb-5">
+        <div class="col-12 text-center">
+            <h1 class="display-4 fw-bold">Management Console</h1>
+            <p class="lead text-muted">Manage your organizations, projects, and categories.</p>
+        </div>
+    </div>
+
+    <!-- Flash Messages -->
+    <% if (messages.success) { %>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <%= messages.success %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <% } %>
+    <% if (messages.error) { %>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <%= messages.error %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <% } %>
+
+    <div class="row g-4">
+        <!-- Organizations Management -->
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-body text-center p-4">
+                    <div class="display-4 text-primary mb-3"><i class="bi bi-building"></i></div>
+                    <h3 class="h4 fw-bold">Organizations</h3>
+                    <p class="text-muted">Add new organizations or edit existing ones.</p>
+                    <div class="d-grid gap-2">
+                        <a href="/organizations/new" class="btn btn-primary rounded-pill">Add New</a>
+                        <a href="/organizations" class="btn btn-outline-secondary rounded-pill">View All</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Projects Management -->
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-body text-center p-4">
+                    <div class="display-4 text-success mb-3"><i class="bi bi-calendar-check"></i></div>
+                    <h3 class="h4 fw-bold">Projects</h3>
+                    <p class="text-muted">Launch new service projects or update details.</p>
+                    <div class="d-grid gap-2">
+                        <a href="/projects/new" class="btn btn-success rounded-pill">Add New</a>
+                        <a href="/projects" class="btn btn-outline-secondary rounded-pill">View All</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Categories Management -->
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-body text-center p-4">
+                    <div class="display-4 text-info mb-3"><i class="bi bi-tags"></i></div>
+                    <h3 class="h4 fw-bold">Categories</h3>
+                    <p class="text-muted">Create focus areas or modify existing categories.</p>
+                    <div class="d-grid gap-2">
+                        <a href="/categories/new" class="btn btn-info text-white rounded-pill">Add New</a>
+                        <a href="/categories" class="btn btn-outline-secondary rounded-pill">View All</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<%- include('partials/footer') %>

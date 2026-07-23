@@ -1,0 +1,61 @@
+<%- include('partials/header') %>
+
+<main class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <nav aria-label="breadcrumb" class="mb-4">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/projects/<%= project.project_id %>"><%= project.project_name %></a></li>
+                    <li class="breadcrumb-item active">Update Categories</li>
+                </ol>
+            </nav>
+
+            <div class="card shadow border-0 p-4">
+                <div class="card-body">
+                    <h1 class="h3 fw-bold text-center mb-2">Update Categories</h1>
+                    <p class="text-muted text-center mb-4">Assign categories to <strong><%= project.project_name %></strong></p>
+                    
+                    <% if (messages.error) { %>
+                        <div class="alert alert-danger"><%= messages.error %></div>
+                    <% } %>
+
+                    <form action="/projects/<%= project.project_id %>/categories" method="POST">
+                        <div class="mb-4">
+                            <label class="form-label d-block mb-3 fw-bold">Select Categories:</label>
+                            <div class="row row-cols-1 row-cols-sm-2 g-3">
+                                <% allCategories.forEach(cat => { %>
+                                    <div class="col">
+                                        <div class="form-check p-3 border rounded transition hover-bg-light">
+                                            <input class="form-check-input ms-0 me-3" 
+                                                   type="checkbox" 
+                                                   name="category_ids" 
+                                                   value="<%= cat.category_id %>" 
+                                                   id="cat<%= cat.category_id %>"
+                                                   <%= currentCategoryIds.includes(cat.category_id) ? 'checked' : '' %>>
+                                            <label class="form-check-label w-100" for="cat<%= cat.category_id %>">
+                                                <%= cat.category_name %>
+                                            </label>
+                                        </div>
+                                    </div>
+                                <% }) %>
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary rounded-pill py-2">Save Changes</button>
+                            <a href="/projects/<%= project.project_id %>" class="btn btn-outline-secondary rounded-pill py-2">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<style>
+    .hover-bg-light:hover {
+        background-color: #f8f9fa;
+    }
+</style>
+
+<%- include('partials/footer') %>
