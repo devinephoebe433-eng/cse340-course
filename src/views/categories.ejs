@@ -1,0 +1,30 @@
+<%- include('partials/header') %>
+
+<main class="container py-5">
+    <div class="row mb-5">
+        <div class="col-12 text-center">
+            <h1 class="display-4 fw-bold">Project Categories</h1>
+            <p class="lead text-muted">Browse projects by their focus area and mission.</p>
+        </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <% categories.forEach(cat => { %>
+            <div class="col">
+                <a href="/categories/<%= cat.category_id %>" class="text-decoration-none">
+                    <div class="card h-100 shadow-sm border-0 bg-light hover-shadow transition">
+                        <div class="card-body text-center py-5">
+                            <div class="display-1 text-primary mb-3">
+                                <i class="bi bi-tag-fill"></i>
+                            </div>
+                            <h3 class="h4 fw-bold text-dark mb-0"><%= cat.category_name %></h3>
+                            <p class="text-muted mt-3">View all related projects</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        <% }) %>
+    </div>
+</main>
+
+<%- include('partials/footer') %>

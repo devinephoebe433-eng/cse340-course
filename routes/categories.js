@@ -1,19 +1,9 @@
 import express from "express";
-import { getAllCategories } from "../src/models/categories.js";
+import { buildCategories, buildCategoryDetail } from "../src/controllers/categories.js";
 
 const router = express.Router();
 
-
-router.get("/", async (req, res) => {
-
-    const categories = await getAllCategories();
-
-    res.render("categories", {
-        title: "Categories",
-        categories
-    });
-
-});
-
+router.get("/", buildCategories);
+router.get("/:categoryId", buildCategoryDetail);
 
 export default router;

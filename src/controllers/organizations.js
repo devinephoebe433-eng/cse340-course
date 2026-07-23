@@ -1,4 +1,4 @@
-import { getAllOrganizations } from "../models/organizations.js";
+import { getAllOrganizations, getOrganizationById, getProjectsByOrganizationId } from "../models/organizations.js";
 
 
 export async function buildOrganizations(req, res) {
@@ -10,4 +10,21 @@ export async function buildOrganizations(req, res) {
         organizations
     });
 
+}
+
+export async function buildOrganizationDetail(req, res) {
+    const organization_id = req.params.organizationId;
+    const organization = await getOrganizationById(organization_id);
+    
+    if (!organization) {
+        return res.status(404).render("404", { title: "Organization Not Found" });
+    }
+
+    const projects = await getProjectsByOrganizationId(organization_id);
+
+    res.render("organization-detail", {
+        title: organization.organization_name,
+        organization,
+        projects
+    });
 }

@@ -1,0 +1,37 @@
+<%- include('partials/header') %>
+
+<main class="container py-5">
+    <div class="row mb-4">
+        <div class="col-12 text-center">
+            <h1 class="display-4 fw-bold">Our Organizations</h1>
+            <p class="lead text-muted">Discover the incredible groups making a difference in our community.</p>
+        </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <% organizations.forEach(org => { %>
+            <div class="col">
+                <div class="card h-100 shadow-sm border-0 hover-shadow transition">
+                    <div class="position-relative">
+                        <img src="/images/<%= org.logo %>" class="card-img-top" alt="<%= org.organization_name %> logo" style="height: 200px; object-fit: cover;">
+                        <div class="card-img-overlay d-flex align-items-end p-0">
+                            <div class="w-100 p-3 bg-dark bg-opacity-75 text-white">
+                                <h5 class="card-title mb-0"><%= org.organization_name %></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text text-muted mb-4"><%= org.description.substring(0, 100) %>...</p>
+                        <div class="d-flex align-items-center text-primary mb-3">
+                            <i class="bi bi-envelope-fill me-2"></i>
+                            <span class="small"><%= org.contact_email %></span>
+                        </div>
+                        <a href="/organizations/<%= org.organization_id %>" class="btn btn-outline-primary w-100 rounded-pill">View Details</a>
+                    </div>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+</main>
+
+<%- include('partials/footer') %>

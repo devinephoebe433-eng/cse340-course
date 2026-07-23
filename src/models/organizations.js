@@ -21,3 +21,21 @@ export async function getAllOrganizations() {
 
     return result.rows;
 }
+
+/**
+ * Get organization by ID
+ */
+export async function getOrganizationById(organization_id) {
+    const sql = "SELECT * FROM organizations WHERE organization_id = $1";
+    const result = await pool.query(sql, [organization_id]);
+    return result.rows[0];
+}
+
+/**
+ * Get projects by organization ID
+ */
+export async function getProjectsByOrganizationId(organization_id) {
+    const sql = "SELECT * FROM projects WHERE organization_id = $1";
+    const result = await pool.query(sql, [organization_id]);
+    return result.rows;
+}
