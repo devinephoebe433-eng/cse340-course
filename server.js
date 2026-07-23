@@ -1,10 +1,13 @@
 import express from "express";
 import organizationRoutes from "./routes/organizations.js";
 import projectRoutes from "./routes/projects.js";
-import categoryRoutes from "./routes/categories.js";
+import categoryRoutes from "./external_routes/categories.js"; // Fixed path if needed, but sticking to previous structure
 import path from "path";
 import { fileURLToPath } from "url";
 import dotenv from "dotenv";
+
+// Re-importing from the correct relative paths
+import categoryRoutesCorrect from "./routes/categories.js";
 
 dotenv.config();
 
@@ -34,16 +37,27 @@ app.use(express.json());
 // ======================
 app.use("/organizations", organizationRoutes);
 app.use("/projects", projectRoutes);
-app.use("/categories", categoryRoutes);
+app.use("/categories", categoryRoutesCorrect);
 
 // HOME PAGE
 app.get("/", (req, res) => {
     res.render("home", { title: "Service Projects" });
 });
 
-// SIGNUP PAGE
+// SIGNUP PAGE (GET)
 app.get("/signup", (req, res) => {
     res.render("signup", { title: "Become a Volunteer" });
+});
+
+// SIGNUP PAGE (POST)
+app.post("/signup", (req, res) => {
+    const { name, email, interest, message } = req.body;
+    console.log(`New Volunteer Signup: ${name} (${email}) for ${interest}`);
+    
+    res.render("thank-you", { 
+        title: "Thank You!",
+        name: name
+    });
 });
 
 // 404 ERROR PAGE
