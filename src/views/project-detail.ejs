@@ -3,7 +3,7 @@
 <main class="container py-5">
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/projects">Projects</a></li>
+            <li class="breadcrumb-item"><a href="/project">Projects</a></li>
             <li class="breadcrumb-item active" aria-current="page"><%= project.project_name %></li>
         </ol>
     </nav>
@@ -27,7 +27,7 @@
                     </div>
                     <!-- Edit Link -->
                     <div class="position-absolute top-0 end-0 p-3">
-                        <a href="/projects/edit/<%= project.project_id %>" class="btn btn-sm btn-light rounded-pill"><i class="bi bi-pencil-fill me-1"></i>Edit</a>
+                        <a href="/project/edit/<%= project.project_id %>" class="btn btn-sm btn-light rounded-pill"><i class="bi bi-pencil-fill me-1"></i>Edit</a>
                     </div>
                 </div>
                 
@@ -39,14 +39,14 @@
                             
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <h3 class="h4 fw-bold mb-0">Categories</h3>
-                                <a href="/projects/<%= project.project_id %>/categories" class="btn btn-sm btn-outline-primary rounded-pill">
+                                <a href="/project/<%= project.project_id %>/categories" class="btn btn-sm btn-outline-primary rounded-pill">
                                     <i class="bi bi-plus-circle me-1"></i>Update Categories
                                 </a>
                             </div>
                             <div class="d-flex flex-wrap gap-2 mb-5">
                                 <% if (categories && categories.length > 0) { %>
                                     <% categories.forEach(cat => { %>
-                                        <a href="/categories/<%= cat.category_id %>" class="btn btn-outline-secondary rounded-pill px-4">
+                                        <a href="/category/<%= cat.category_id %>" class="btn btn-outline-secondary rounded-pill px-4">
                                             <%= cat.category_name %>
                                         </a>
                                     <% }) %>
@@ -59,7 +59,7 @@
                         <div class="col-md-4">
                             <div class="card bg-light border-0 p-4">
                                 <h4 class="h5 fw-bold mb-3">Organization</h4>
-                                <p class="mb-4">Hosted by <a href="/organizations/<%= project.organization_id %>" class="fw-bold"><%= project.organization_name %></a></p>
+                                <p class="mb-4">Hosted by <a href="/organization/<%= project.organization_id %>" class="fw-bold"><%= project.organization_name %></a></p>
                                 <a href="/signup" class="btn btn-primary w-100 rounded-pill py-2">Volunteer Now</a>
                             </div>
                         </div>

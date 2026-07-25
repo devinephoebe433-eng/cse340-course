@@ -30,7 +30,7 @@ export async function buildOrganizationDetail(req, res) {
 export async function buildNewOrganization(req, res) {
     res.render("organization-form", {
         title: "Add New Organization",
-        action: "/organizations/new",
+        action: "/organization/new",
         organization: null
     });
 }
@@ -42,7 +42,7 @@ export async function handleNewOrganization(req, res) {
         req.flash("error", errors.array()[0].msg);
         return res.status(400).render("organization-form", {
             title: "Add New Organization",
-            action: "/organizations/new",
+            action: "/organization/new",
             organization: req.body
         });
     }
@@ -54,7 +54,7 @@ export async function handleNewOrganization(req, res) {
         res.redirect("/management");
     } catch (error) {
         req.flash("error", "Error creating organization.");
-        res.redirect("/organizations/new");
+        res.redirect("/organization/new");
     }
 }
 
@@ -67,7 +67,7 @@ export async function buildEditOrganization(req, res) {
     }
     res.render("organization-form", {
         title: "Edit Organization",
-        action: `/organizations/edit/${organization.organization_id}`,
+        action: `/organization/edit/${organization.organization_id}`,
         organization
     });
 }
@@ -80,7 +80,7 @@ export async function handleEditOrganization(req, res) {
         req.flash("error", errors.array()[0].msg);
         return res.status(400).render("organization-form", {
             title: "Edit Organization",
-            action: `/organizations/edit/${organization_id}`,
+            action: `/organization/edit/${organization_id}`,
             organization: { ...req.body, organization_id }
         });
     }
@@ -92,6 +92,6 @@ export async function handleEditOrganization(req, res) {
         res.redirect("/management");
     } catch (error) {
         req.flash("error", "Error updating organization.");
-        res.redirect(`/organizations/edit/${organization_id}`);
+        res.redirect(`/organization/edit/${organization_id}`);
     }
 }

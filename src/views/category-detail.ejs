@@ -3,7 +3,7 @@
 <main class="container py-5">
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/categories">Categories</a></li>
+            <li class="breadcrumb-item"><a href="/category">Categories</a></li>
             <li class="breadcrumb-item active" aria-current="page"><%= category.category_name %></li>
         </ol>
     </nav>
@@ -14,7 +14,7 @@
             <p class="lead text-muted">Explore all service projects tagged with this category.</p>
         </div>
         <div class="col-md-4 text-center text-md-end">
-            <a href="/categories/edit/<%= category.category_id %>" class="btn btn-outline-secondary rounded-pill px-4">
+            <a href="/category/edit/<%= category.category_id %>" class="btn btn-outline-secondary rounded-pill px-4">
                 <i class="bi bi-pencil-fill me-1"></i>Edit Category
             </a>
         </div>
@@ -40,7 +40,7 @@
                                 </div>
                             </div>
                             
-                            <a href="/projects/<%= project.project_id %>" class="btn btn-outline-primary w-100 rounded-pill mt-auto">Learn More</a>
+                            <a href="/project/<%= project.project_id %>" class="btn btn-outline-primary w-100 rounded-pill mt-auto">Learn More</a>
                         </div>
                     </div>
                 </div>

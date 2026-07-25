@@ -1,12 +1,12 @@
-import { getAllProjects, getProjectById, getCategoriesByProjectId, createProject, updateProject, updateProjectCategories } from "../models/projects.js";
+import { getUpcomingProjectsWithOrganization, getAllProjects, getProjectById, getCategoriesByProjectId, createProject, updateProject, updateProjectCategories } from "../models/projects.js";
 import { getAllOrganizations } from "../models/organizations.js";
 import { getAllCategories } from "../models/categories.js";
 import { validationResult } from "express-validator";
 
 export async function buildProjects(req, res) {
-    const projects = await getAllProjects();
+    const projects = await getUpcomingProjectsWithOrganization();
     res.render("projects", {
-        title: "Service Projects",
+        title: "Upcoming Service Projects",
         projects
     });
 }
@@ -33,7 +33,7 @@ export async function buildNewProject(req, res) {
     const organizations = await getAllOrganizations();
     res.render("project-form", {
         title: "Add New Project",
-        action: "/projects/new",
+        action: "/project/new",
         project: null,
         organizations
     });
@@ -47,7 +47,7 @@ export async function handleNewProject(req, res) {
         req.flash("error", errors.array()[0].msg);
         return res.status(400).render("project-form", {
             title: "Add New Project",
-            action: "/projects/new",
+            action: "/project/new",
             project: req.body,
             organizations
         });
@@ -60,7 +60,7 @@ export async function handleNewProject(req, res) {
         res.redirect("/management");
     } catch (error) {
         req.flash("error", "Error creating project.");
-        res.redirect("/projects/new");
+        res.redirect("/project/new");
     }
 }
 
@@ -74,7 +74,7 @@ export async function buildEditProject(req, res) {
     const organizations = await getAllOrganizations();
     res.render("project-form", {
         title: "Edit Project",
-        action: `/projects/edit/${project.project_id}`,
+        action: `/project/edit/${project.project_id}`,
         project,
         organizations
     });
@@ -89,7 +89,7 @@ export async function handleEditProject(req, res) {
         req.flash("error", errors.array()[0].msg);
         return res.status(400).render("project-form", {
             title: "Edit Project",
-            action: `/projects/edit/${project_id}`,
+            action: `/project/edit/${project_id}`,
             project: { ...req.body, project_id },
             organizations
         });
@@ -102,7 +102,7 @@ export async function handleEditProject(req, res) {
         res.redirect("/management");
     } catch (error) {
         req.flash("error", "Error updating project.");
-        res.redirect(`/projects/edit/${project_id}`);
+        res.redirect(`/project/edit/${project_id}`);
     }
 }
 
@@ -112,7 +112,7 @@ export async function buildUpdateCategories(req, res) {
     const project = await getProjectById(project_id);
     if (!project) {
         req.flash("error", "Project not found.");
-        return res.redirect("/projects");
+        return res.redirect("/project");
     }
     
     const allCategories = await getAllCategories();
@@ -137,9 +137,9 @@ export async function handleUpdateCategories(req, res) {
     try {
         await updateProjectCategories(project_id, ids);
         req.flash("success", "Project categories updated successfully!");
-        res.redirect(`/projects/${project_id}`);
+        res.redirect(`/project/${project_id}`);
     } catch (error) {
         req.flash("error", "Error updating project categories.");
-        res.redirect(`/projects/${project_id}/categories`);
+        res.redirect(`/project/${project_id}/categories`);
     }
 }

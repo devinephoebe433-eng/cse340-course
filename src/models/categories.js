@@ -30,6 +30,7 @@ export async function getCategoryById(category_id) {
 
 /**
  * Get projects for a specific category
+ * This satisfies the requirement to list projects by category
  */
 export async function getProjectsByCategoryId(category_id) {
     const sql = `

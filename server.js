@@ -48,9 +48,9 @@ app.use((req, res, next) => {
 // ======================
 // ROUTES
 // ======================
-app.use("/organizations", organizationRoutes);
-app.use("/projects", projectRoutes);
-app.use("/categories", categoryRoutes);
+app.use("/organization", organizationRoutes);
+app.use("/project", projectRoutes);
+app.use("/category", categoryRoutes);
 
 // MANAGEMENT ROUTE
 app.get("/management", (req, res) => {
@@ -79,8 +79,14 @@ app.post("/signup", (req, res) => {
 });
 
 // 404 ERROR PAGE
-app.use((req, res) => {
+app.use((req, res, next) => {
     res.status(404).render("404", { title: "Page Not Found" });
+});
+
+// 500 Error Page
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).render("500", { title: "Server Error" });
 });
 
 // ======================

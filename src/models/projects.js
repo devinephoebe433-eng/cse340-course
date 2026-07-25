@@ -4,18 +4,43 @@ import pool from "../database.js";
 /**
  * Get all projects
  */
+export async function getUpcomingProjectsWithOrganization() {
+
+    const sql = `
+        SELECT 
+            p.project_id,
+            p.project_name,
+            p.project_description,
+            p.location,
+            p.date,
+            p.organization_id,
+            o.organization_name
+        FROM projects p
+        JOIN organizations o ON p.organization_id = o.organization_id
+        WHERE p.date >= CURRENT_DATE
+        ORDER BY p.date ASC
+        LIMIT 5;
+    `;
+
+    const result = await pool.query(sql);
+
+    return result.rows;
+}
+
 export async function getAllProjects() {
 
     const sql = `
         SELECT 
-            project_id,
-            project_name,
-            project_description,
-            location,
-            date,
-            organization_id
-        FROM projects
-        ORDER BY date DESC;
+            p.project_id,
+            p.project_name,
+            p.project_description,
+            p.location,
+            p.date,
+            p.organization_id,
+            o.organization_name
+        FROM projects p
+        JOIN organizations o ON p.organization_id = o.organization_id
+        ORDER BY p.date DESC;
     `;
 
     const result = await pool.query(sql);

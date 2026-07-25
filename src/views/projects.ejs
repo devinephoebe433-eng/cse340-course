@@ -14,6 +14,7 @@
                 <div class="card h-100 shadow-sm border-0 hover-shadow transition">
                     <div class="card-body">
                         <h5 class="card-title fw-bold text-primary mb-3"><%= project.project_name %></h5>
+                            <small class="text-muted">by <a href="/organization/<%= project.organization_id %>" class="text-decoration-none"><%= project.organization_name %></a></small>
                         <p class="card-text text-muted mb-4"><%= project.project_description.substring(0, 100) %>...</p>
                         
                         <div class="mb-3">
@@ -27,7 +28,7 @@
                             </div>
                         </div>
                         
-                        <a href="/projects/<%= project.project_id %>" class="btn btn-primary w-100 rounded-pill mt-auto">Learn More</a>
+                        <a href="/project/<%= project.project_id %>" class="btn btn-primary w-100 rounded-pill mt-auto">Learn More</a>
                     </div>
                 </div>
             </div>
