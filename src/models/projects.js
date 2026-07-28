@@ -17,9 +17,7 @@ export async function getUpcomingProjectsWithOrganization() {
             o.organization_name
         FROM projects p
         JOIN organizations o ON p.organization_id = o.organization_id
-        WHERE p.date >= CURRENT_DATE
-        ORDER BY p.date ASC
-        LIMIT 5;
+        ORDER BY p.date ASC;
     `;
 
     const result = await pool.query(sql);
