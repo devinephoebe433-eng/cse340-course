@@ -8,6 +8,7 @@ const router = express.Router();
 router.get("/login", userController.buildLogin);
 router.post("/login", userController.loginUser);
 router.get("/logout", userController.logoutUser);
+router.post("/signup", userController.registerUser);
 
 // Protected routes
 router.get("/users", authMiddleware.requireAdmin, userController.buildUsersList);

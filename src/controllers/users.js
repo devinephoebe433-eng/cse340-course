@@ -35,6 +35,20 @@ async function logoutUser(req, res) {
     res.redirect("/");
 }
 
+async function registerUser(req, res) {
+    const { name, email, password } = req.body;
+    try {
+        const hashedPassword = await bcrypt.hash(password, 10);
+        await userModel.registerUser(name, email, hashedPassword);
+        req.flash("success", "Registration successful! You can now log in.");
+        res.redirect("/login");
+    } catch (error) {
+        console.error("Registration error:", error);
+        req.flash("error", "An error occurred during registration. Email might already be in use.");
+        res.redirect("/signup");
+    }
+}
+
 async function buildUsersList(req, res) {
     try {
         const users = await userModel.getAllUsers();
@@ -53,5 +67,6 @@ export default {
     buildLogin,
     loginUser,
     logoutUser,
+    registerUser,
     buildUsersList
 };
