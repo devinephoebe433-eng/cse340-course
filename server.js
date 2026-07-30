@@ -77,6 +77,9 @@ app.post("/signup", (req, res) => {
     const { name, email, interest, message } = req.body;
     console.log(`New Volunteer Signup: ${name} (${email}) for ${interest}`);
     
+    // In a real app, we would save to DB here.
+    // For now, we just show the thank you page.
+    req.flash("success", "Registration successful!");
     res.render("thank-you", { 
         title: "Thank You!",
         name: name

@@ -1,6 +1,22 @@
 <%- include('partials/header') %>
 
 <main>
+    <div class="container mt-3">
+        <!-- Flash Messages -->
+        <% if (messages.success) { %>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <%= messages.success %>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <% } %>
+        <% if (messages.error) { %>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <%= messages.error %>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <% } %>
+    </div>
+
     <!-- Hero Section -->
     <section class="bg-primary text-white py-5 mb-5">
         <div class="container">
