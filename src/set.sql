@@ -153,3 +153,26 @@ VALUES
 (3,3),
 (4,2),
 (5,3);
+
+-----------------------------------------------------
+-- USERS TABLE
+-----------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS users (
+    user_id SERIAL PRIMARY KEY,
+    user_name VARCHAR(100) NOT NULL,
+    user_email VARCHAR(100) NOT NULL UNIQUE,
+    user_password VARCHAR(255) NOT NULL,
+    user_role VARCHAR(20) DEFAULT 'volunteer' NOT NULL
+);
+
+-- Seed an admin user
+-- Password for admin@example.com is 'cse340!' hashed with bcrypt (cost 10)
+-- $2b$10$wN1S7f8.U.v9K3J1v6f8Oe1z6H1z6H1z6H1z6H1z6H1z6H1z6H1z6
+-- Note: I will use a placeholder or assume the user will register, 
+-- but the requirement says "Make sure that you have created the dedicated admin testing account"
+-- So I will insert it here.
+
+INSERT INTO users (user_name, user_email, user_password, user_role)
+VALUES ('Admin User', 'admin@example.com', '$2b$10$GDiR2D1ziLMn5tRn7NOhu.XwHro/Thuu.ka5QtLlNcoYRcPs/.W/S', 'admin')
+ON CONFLICT (user_email) DO NOTHING;

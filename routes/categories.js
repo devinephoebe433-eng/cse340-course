@@ -8,6 +8,7 @@ import {
     buildEditCategory, 
     handleEditCategory 
 } from "../src/controllers/categories.js";
+import authMiddleware from "../middleware/auth.js";
 
 const router = express.Router();
 
@@ -20,10 +21,10 @@ const categoryValidation = [
 ];
 
 router.get("/", buildCategories);
-router.get("/new", buildNewCategory);
-router.post("/new", categoryValidation, handleNewCategory);
-router.get("/edit/:categoryId", buildEditCategory);
-router.post("/edit/:categoryId", categoryValidation, handleEditCategory);
+router.get("/new", authMiddleware.requireAdmin, buildNewCategory);
+router.post("/new", authMiddleware.requireAdmin, categoryValidation, handleNewCategory);
+router.get("/edit/:categoryId", authMiddleware.requireAdmin, buildEditCategory);
+router.post("/edit/:categoryId", authMiddleware.requireAdmin, categoryValidation, handleEditCategory);
 router.get("/:categoryId", buildCategoryDetail);
 
 export default router;

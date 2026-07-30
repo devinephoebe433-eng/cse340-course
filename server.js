@@ -4,6 +4,8 @@ import flash from "connect-flash";
 import organizationRoutes from "./routes/organizations.js";
 import projectRoutes from "./routes/projects.js";
 import categoryRoutes from "./routes/categories.js";
+import userRoutes from "./routes/users.js";
+import authMiddleware from "./middleware/auth.js";
 import path from "path";
 import { fileURLToPath } from "url";
 import dotenv from "dotenv";
@@ -39,9 +41,11 @@ app.use(session({
 }));
 app.use(flash());
 
-// Global variables for flash messages
+// Global variables for flash messages and user session
 app.use((req, res, next) => {
     res.locals.messages = req.flash();
+    res.locals.user = req.session.user || null;
+    res.locals.loggedin = req.session.loggedin || false;
     next();
 });
 
@@ -51,9 +55,10 @@ app.use((req, res, next) => {
 app.use("/organization", organizationRoutes);
 app.use("/project", projectRoutes);
 app.use("/category", categoryRoutes);
+app.use("/", userRoutes);
 
 // MANAGEMENT ROUTE
-app.get("/management", (req, res) => {
+app.get("/management", authMiddleware.requireLogin, (req, res) => {
     res.render("management", { title: "Management Console" });
 });
 

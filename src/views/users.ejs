@@ -1,0 +1,67 @@
+<%- include('partials/header') %>
+
+<main class="container py-5">
+    <div class="row mb-4">
+        <div class="col-12 text-center">
+            <h1 class="display-4 fw-bold">Registered Users</h1>
+            <p class="lead text-muted">A list of all users registered in the system.</p>
+        </div>
+    </div>
+
+    <!-- Flash Messages -->
+    <% if (messages.success) { %>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <%= messages.success %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <% } %>
+    <% if (messages.error) { %>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <%= messages.error %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <% } %>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th class="px-4 py-3">Name</th>
+                            <th class="px-4 py-3">Email</th>
+                            <th class="px-4 py-3">Role</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (users && users.length > 0) { %>
+                            <% users.forEach(user => { %>
+                                <tr>
+                                    <td class="px-4 py-3 fw-medium"><%= user.user_name %></td>
+                                    <td class="px-4 py-3"><%= user.user_email %></td>
+                                    <td class="px-4 py-3">
+                                        <span class="badge rounded-pill <%= user.user_role === 'admin' ? 'bg-danger' : 'bg-primary' %>">
+                                            <%= user.user_role %>
+                                        </span>
+                                    </td>
+                                </tr>
+                            <% }); %>
+                        <% } else { %>
+                            <tr>
+                                <td colspan="3" class="text-center py-4 text-muted">No users found.</td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4 text-center">
+        <a href="/management" class="btn btn-outline-secondary rounded-pill">
+            <i class="bi bi-arrow-left me-2"></i>Back to Management
+        </a>
+    </div>
+</main>
+
+<%- include('partials/footer') %>

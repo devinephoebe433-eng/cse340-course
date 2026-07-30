@@ -10,6 +10,7 @@ import {
     buildUpdateCategories,
     handleUpdateCategories
 } from "../src/controllers/projects.js";
+import authMiddleware from "../middleware/auth.js";
 
 const router = express.Router();
 
@@ -23,12 +24,12 @@ const projectValidation = [
 ];
 
 router.get("/", buildProjects);
-router.get("/new", buildNewProject);
-router.post("/new", projectValidation, handleNewProject);
-router.get("/edit/:projectId", buildEditProject);
-router.post("/edit/:projectId", projectValidation, handleEditProject);
-router.get("/:projectId/categories", buildUpdateCategories);
-router.post("/:projectId/categories", handleUpdateCategories);
+router.get("/new", authMiddleware.requireAdmin, buildNewProject);
+router.post("/new", authMiddleware.requireAdmin, projectValidation, handleNewProject);
+router.get("/edit/:projectId", authMiddleware.requireAdmin, buildEditProject);
+router.post("/edit/:projectId", authMiddleware.requireAdmin, projectValidation, handleEditProject);
+router.get("/:projectId/categories", authMiddleware.requireAdmin, buildUpdateCategories);
+router.post("/:projectId/categories", authMiddleware.requireAdmin, handleUpdateCategories);
 router.get("/:projectId", buildProjectDetail);
 
 export default router;

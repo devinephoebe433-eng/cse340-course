@@ -1,0 +1,50 @@
+<%- include('partials/header') %>
+
+<main class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4 p-md-5">
+                    <div class="text-center mb-4">
+                        <h1 class="h3 fw-bold">Login</h1>
+                        <p class="text-muted">Welcome back! Please enter your details.</p>
+                    </div>
+
+                    <!-- Flash Messages -->
+                    <% if (messages.success) { %>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <%= messages.success %>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    <% } %>
+                    <% if (messages.error) { %>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <%= messages.error %>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    <% } %>
+
+                    <form action="/login" method="POST">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="email" name="email" required placeholder="name@example.com">
+                        </div>
+                        <div class="mb-4">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" required placeholder="••••••••">
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary rounded-pill py-2">Sign in</button>
+                        </div>
+                    </form>
+
+                    <div class="text-center mt-4">
+                        <p class="text-muted small mb-0">Don't have an account? <a href="/signup" class="text-primary text-decoration-none fw-medium">Sign up</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<%- include('partials/header') %>

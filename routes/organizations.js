@@ -8,6 +8,7 @@ import {
     buildEditOrganization,
     handleEditOrganization
 } from "../src/controllers/organizations.js";
+import authMiddleware from "../middleware/auth.js";
 
 const router = express.Router();
 
@@ -20,10 +21,10 @@ const orgValidation = [
 ];
 
 router.get("/", buildOrganizations);
-router.get("/new", buildNewOrganization);
-router.post("/new", orgValidation, handleNewOrganization);
-router.get("/edit/:organizationId", buildEditOrganization);
-router.post("/edit/:organizationId", orgValidation, handleEditOrganization);
+router.get("/new", authMiddleware.requireAdmin, buildNewOrganization);
+router.post("/new", authMiddleware.requireAdmin, orgValidation, handleNewOrganization);
+router.get("/edit/:organizationId", authMiddleware.requireAdmin, buildEditOrganization);
+router.post("/edit/:organizationId", authMiddleware.requireAdmin, orgValidation, handleEditOrganization);
 router.get("/:organizationId", buildOrganizationDetail);
 
 export default router;
