@@ -54,7 +54,7 @@ app.use((req, res, next) => {
 // ======================
 app.use("/organization", organizationRoutes);
 app.use("/project", projectRoutes);
-app.use("/category", categoryRoutes);
+app.use("/categories", categoryRoutes);
 app.use("/", userRoutes);
 
 // MANAGEMENT ROUTE

@@ -1,22 +1,18 @@
 import pool from "../database.js";
 
-
 /**
- * Get all categories
+ * Get all categories from the database
+ * This function is used to retrieve all category records for display.
  */
 export async function getAllCategories() {
-
-    const sql = `
-        SELECT 
-            category_id,
-            category_name
-        FROM categories
-        ORDER BY category_name;
-    `;
-
-    const result = await pool.query(sql);
-
-    return result.rows;
+    const sql = "SELECT * FROM categories ORDER BY category_name ASC";
+    try {
+        const result = await pool.query(sql);
+        return result.rows;
+    } catch (error) {
+        console.error("Error in getAllCategories:", error);
+        throw error;
+    }
 }
 
 /**
@@ -30,7 +26,6 @@ export async function getCategoryById(category_id) {
 
 /**
  * Get projects for a specific category
- * This satisfies the requirement to list projects by category
  */
 export async function getProjectsByCategoryId(category_id) {
     const sql = `
