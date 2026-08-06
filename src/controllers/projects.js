@@ -46,7 +46,7 @@ export async function handleVolunteerSignup(req, res) {
 
         await addVolunteer(project_id, user_id);
         req.flash("success", `You are now volunteering for ${project.project_name}.`);
-        res.redirect("/management");
+        res.redirect("/dashboard");
     } catch (error) {
         console.error("Volunteer signup error:", error);
         req.flash("error", "Unable to sign up for this project.");
@@ -62,11 +62,11 @@ export async function handleVolunteerRemoval(req, res) {
     try {
         await removeVolunteer(project_id, user_id);
         req.flash("success", "You are no longer volunteering for this project.");
-        res.redirect(req.get("referer") || "/management");
+        res.redirect(req.get("referer") || "/dashboard");
     } catch (error) {
         console.error("Volunteer removal error:", error);
         req.flash("error", "Unable to remove your volunteer signup.");
-        res.redirect(req.get("referer") || "/management");
+        res.redirect(req.get("referer") || "/dashboard");
     }
 }
 

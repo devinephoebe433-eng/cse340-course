@@ -59,23 +59,27 @@ app.use("/project", projectRoutes);
 app.use("/categories", categoryRoutes);
 app.use("/", userRoutes);
 
-// MANAGEMENT ROUTE
-app.get("/management", authMiddleware.requireLogin, async (req, res) => {
+// AUTHENTICATED VOLUNTEER DASHBOARD
+async function renderDashboard(req, res) {
     try {
         const volunteeredProjects = await getProjectsByVolunteer(req.session.user.id);
         res.render("management", {
-            title: "Management Console",
+            title: "Volunteer Dashboard",
             volunteeredProjects
         });
     } catch (error) {
         console.error("Dashboard error:", error);
-        req.flash("error", "Unable to load your volunteer projects.");
+        req.flash("error", "Unable to load your volunteer projects. Please try again.");
         res.render("management", {
-            title: "Management Console",
-            volunteeredProjects: []
+            title: "Volunteer Dashboard",
+            volunteeredProjects: [],
+            dashboardError: true
         });
     }
-});
+}
+
+app.get("/dashboard", authMiddleware.requireLogin, renderDashboard);
+app.get("/management", authMiddleware.requireLogin, renderDashboard);
 
 // HOME PAGE
 app.get("/", (req, res) => {

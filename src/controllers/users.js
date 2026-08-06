@@ -18,7 +18,7 @@ async function loginUser(req, res) {
                 role: user.user_role
             };
             req.flash("success", `Welcome back, ${user.user_name}!`);
-            res.redirect("/management");
+            res.redirect("/dashboard");
         } else {
             req.flash("error", "Invalid email or password.");
             res.redirect("/login");

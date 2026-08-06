@@ -21,6 +21,11 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     <% } %>
+    <% if (dashboardError) { %>
+        <div class="alert alert-warning" role="alert">
+            <strong>Volunteer projects could not be loaded.</strong> Please refresh the dashboard after the database finishes connecting.
+        </div>
+    <% } %>
 
     <div class="row g-4">
         <!-- Organizations Management -->

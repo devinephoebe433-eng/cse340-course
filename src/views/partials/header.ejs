@@ -50,7 +50,7 @@
                     </li>
                     <% if (loggedin) { %>
                         <li class="nav-item">
-                            <a class="nav-link <% if (req.path === '/management') { %>active<% } %>" href="/management">Dashboard</a>
+                            <a class="nav-link <% if (req.path === '/dashboard' || req.path === '/management') { %>active<% } %>" href="/dashboard">Dashboard</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/logout">Logout</a>
