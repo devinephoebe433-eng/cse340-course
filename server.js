@@ -6,6 +6,7 @@ import projectRoutes from "./routes/projects.js";
 import categoryRoutes from "./routes/categories.js";
 import userRoutes from "./routes/users.js";
 import authMiddleware from "./middleware/auth.js";
+import { getProjectsByVolunteer } from "./src/models/projects.js";
 import path from "path";
 import { fileURLToPath } from "url";
 import dotenv from "dotenv";
@@ -59,8 +60,21 @@ app.use("/categories", categoryRoutes);
 app.use("/", userRoutes);
 
 // MANAGEMENT ROUTE
-app.get("/management", authMiddleware.requireLogin, (req, res) => {
-    res.render("management", { title: "Management Console" });
+app.get("/management", authMiddleware.requireLogin, async (req, res) => {
+    try {
+        const volunteeredProjects = await getProjectsByVolunteer(req.session.user.id);
+        res.render("management", {
+            title: "Management Console",
+            volunteeredProjects
+        });
+    } catch (error) {
+        console.error("Dashboard error:", error);
+        req.flash("error", "Unable to load your volunteer projects.");
+        res.render("management", {
+            title: "Management Console",
+            volunteeredProjects: []
+        });
+    }
 });
 
 // HOME PAGE

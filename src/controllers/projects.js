@@ -1,4 +1,4 @@
-import { getUpcomingProjectsWithOrganization, getAllProjects, getProjectById, getCategoriesByProjectId, createProject, updateProject, updateProjectCategories } from "../models/projects.js";
+import { getUpcomingProjectsWithOrganization, getAllProjects, getProjectById, getCategoriesByProjectId, createProject, updateProject, updateProjectCategories, isUserVolunteering, addVolunteer, removeVolunteer } from "../models/projects.js";
 import { getAllOrganizations } from "../models/organizations.js";
 import { getAllCategories } from "../models/categories.js";
 import { validationResult } from "express-validator";
@@ -20,12 +20,54 @@ export async function buildProjectDetail(req, res) {
     }
 
     const categories = await getCategoriesByProjectId(project_id);
+    const isVolunteering = req.session.loggedin
+        ? await isUserVolunteering(project_id, req.session.user.id)
+        : false;
 
     res.render("project-detail", {
         title: project.project_name,
         project,
-        categories
+        categories,
+        isVolunteering
     });
+}
+
+// POST Volunteer Signup
+export async function handleVolunteerSignup(req, res) {
+    const project_id = req.params.projectId;
+    const user_id = req.session.user.id;
+
+    try {
+        const project = await getProjectById(project_id);
+        if (!project) {
+            req.flash("error", "Project not found.");
+            return res.redirect("/project");
+        }
+
+        await addVolunteer(project_id, user_id);
+        req.flash("success", `You are now volunteering for ${project.project_name}.`);
+        res.redirect(`/project/${project_id}`);
+    } catch (error) {
+        console.error("Volunteer signup error:", error);
+        req.flash("error", "Unable to sign up for this project.");
+        res.redirect(`/project/${project_id}`);
+    }
+}
+
+// POST Remove Volunteer Signup
+export async function handleVolunteerRemoval(req, res) {
+    const project_id = req.params.projectId;
+    const user_id = req.session.user.id;
+
+    try {
+        await removeVolunteer(project_id, user_id);
+        req.flash("success", "You are no longer volunteering for this project.");
+        res.redirect(req.get("referer") || "/management");
+    } catch (error) {
+        console.error("Volunteer removal error:", error);
+        req.flash("error", "Unable to remove your volunteer signup.");
+        res.redirect(req.get("referer") || "/management");
+    }
 }
 
 // GET New Project Form

@@ -60,7 +60,23 @@
                             <div class="card bg-light border-0 p-4">
                                 <h4 class="h5 fw-bold mb-3">Organization</h4>
                                 <p class="mb-4">Hosted by <a href="/organization/<%= project.organization_id %>" class="fw-bold"><%= project.organization_name %></a></p>
-                                <a href="/signup" class="btn btn-primary w-100 rounded-pill py-2">Volunteer Now</a>
+                                <% if (loggedin) { %>
+                                    <% if (isVolunteering) { %>
+                                        <div class="alert alert-success mb-3" role="status">
+                                            <i class="bi bi-check-circle-fill me-2"></i>You are volunteering for this project.
+                                        </div>
+                                        <form action="/project/<%= project.project_id %>/volunteer/remove" method="POST">
+                                            <button type="submit" class="btn btn-outline-danger w-100 rounded-pill py-2">Remove Volunteer Signup</button>
+                                        </form>
+                                    <% } else { %>
+                                        <form action="/project/<%= project.project_id %>/volunteer" method="POST">
+                                            <button type="submit" class="btn btn-primary w-100 rounded-pill py-2"><i class="bi bi-hand-thumbs-up me-2"></i>Volunteer for This Project</button>
+                                        </form>
+                                    <% } %>
+                                <% } else { %>
+                                    <p class="text-muted small">Log in to volunteer for this project.</p>
+                                    <a href="/login" class="btn btn-primary w-100 rounded-pill py-2">Log In to Volunteer</a>
+                                <% } %>
                             </div>
                         </div>
                     </div>

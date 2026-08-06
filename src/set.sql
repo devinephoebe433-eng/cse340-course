@@ -1,5 +1,6 @@
 
 -- Drop tables in correct order to avoid foreign key constraints
+DROP TABLE IF EXISTS project_volunteers;
 DROP TABLE IF EXISTS project_categories;
 DROP TABLE IF EXISTS projects;
 DROP TABLE IF EXISTS categories;
@@ -72,6 +73,26 @@ CREATE TABLE users (
     user_email VARCHAR(100) NOT NULL UNIQUE,
     user_password VARCHAR(255) NOT NULL,
     user_role VARCHAR(20) DEFAULT 'volunteer' NOT NULL
+);
+
+-----------------------------------------------------
+-- PROJECT VOLUNTEERS TABLE (Many-to-Many)
+-----------------------------------------------------
+
+CREATE TABLE project_volunteers (
+    project_id INT NOT NULL,
+    user_id INT NOT NULL,
+    volunteered_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    PRIMARY KEY (project_id, user_id),
+
+    FOREIGN KEY (project_id)
+        REFERENCES projects(project_id)
+        ON DELETE CASCADE,
+
+    FOREIGN KEY (user_id)
+        REFERENCES users(user_id)
+        ON DELETE CASCADE
 );
 
 -----------------------------------------------------

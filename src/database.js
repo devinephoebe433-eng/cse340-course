@@ -37,6 +37,16 @@ async function initDb() {
             )
         `);
         
+        // Ensure the volunteer relationship table exists
+        await client.query(`
+            CREATE TABLE IF NOT EXISTS project_volunteers (
+                project_id INT NOT NULL REFERENCES projects(project_id) ON DELETE CASCADE,
+                user_id INT NOT NULL REFERENCES users(user_id) ON DELETE CASCADE,
+                volunteered_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                PRIMARY KEY (project_id, user_id)
+            )
+        `);
+
         // Ensure admin user exists
         const adminEmail = 'admin@example.com';
         const adminCheck = await client.query('SELECT * FROM users WHERE user_email = $1', [adminEmail]);

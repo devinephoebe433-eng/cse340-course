@@ -119,3 +119,79 @@ export async function updateProjectCategories(project_id, category_ids) {
         client.release();
     }
 }
+
+/**
+ * Check whether a user is volunteering for a project.
+ */
+export async function isUserVolunteering(project_id, user_id) {
+    const sql = `
+        SELECT 1
+        FROM project_volunteers
+        WHERE project_id = $1 AND user_id = $2
+    `;
+    const result = await pool.query(sql, [project_id, user_id]);
+    return result.rowCount > 0;
+}
+
+/**
+ * Add a user to a project's volunteer list.
+ */
+export async function addVolunteer(project_id, user_id) {
+    const sql = `
+        INSERT INTO project_volunteers (project_id, user_id)
+        VALUES ($1, $2)
+        ON CONFLICT (project_id, user_id) DO NOTHING
+        RETURNING *
+    `;
+    const result = await pool.query(sql, [project_id, user_id]);
+    return result.rows[0];
+}
+
+/**
+ * Remove a user from a project's volunteer list.
+ */
+export async function removeVolunteer(project_id, user_id) {
+    const sql = `
+        DELETE FROM project_volunteers
+        WHERE project_id = $1 AND user_id = $2
+        RETURNING *
+    `;
+    const result = await pool.query(sql, [project_id, user_id]);
+    return result.rows[0];
+}
+
+/**
+ * Get all projects for which a user has volunteered.
+ */
+export async function getProjectsByVolunteer(user_id) {
+    const sql = `
+        SELECT
+            p.project_id,
+            p.project_name,
+            p.project_description,
+            p.location,
+            p.date,
+            p.organization_id,
+            o.organization_name
+        FROM project_volunteers pv
+        JOIN projects p ON p.project_id = pv.project_id
+        JOIN organizations o ON o.organization_id = p.organization_id
+        WHERE pv.user_id = $1
+        ORDER BY p.date ASC, p.project_name ASC
+    `;
+    const result = await pool.query(sql, [user_id]);
+    return result.rows;
+}
+
+/**
+ * Get the number of volunteers registered for a project.
+ */
+export async function getVolunteerCount(project_id) {
+    const sql = `
+        SELECT COUNT(*)::int AS volunteer_count
+        FROM project_volunteers
+        WHERE project_id = $1
+    `;
+    const result = await pool.query(sql, [project_id]);
+    return result.rows[0]?.volunteer_count || 0;
+}

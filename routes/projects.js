@@ -7,6 +7,8 @@ import {
     handleNewProject,
     buildEditProject,
     handleEditProject,
+    handleVolunteerSignup,
+    handleVolunteerRemoval,
     buildUpdateCategories,
     handleUpdateCategories
 } from "../src/controllers/projects.js";
@@ -28,6 +30,8 @@ router.get("/new", authMiddleware.requireAdmin, buildNewProject);
 router.post("/new", authMiddleware.requireAdmin, projectValidation, handleNewProject);
 router.get("/edit/:projectId", authMiddleware.requireAdmin, buildEditProject);
 router.post("/edit/:projectId", authMiddleware.requireAdmin, projectValidation, handleEditProject);
+router.post("/:projectId/volunteer", authMiddleware.requireLogin, handleVolunteerSignup);
+router.post("/:projectId/volunteer/remove", authMiddleware.requireLogin, handleVolunteerRemoval);
 router.get("/:projectId/categories", authMiddleware.requireAdmin, buildUpdateCategories);
 router.post("/:projectId/categories", authMiddleware.requireAdmin, handleUpdateCategories);
 router.get("/:projectId", buildProjectDetail);
