@@ -65,7 +65,8 @@ async function renderDashboard(req, res) {
         const volunteeredProjects = await getProjectsByVolunteer(req.session.user.id);
         res.render("management", {
             title: "Volunteer Dashboard",
-            volunteeredProjects
+            volunteeredProjects,
+            dashboardError: false
         });
     } catch (error) {
         console.error("Dashboard error:", error);
