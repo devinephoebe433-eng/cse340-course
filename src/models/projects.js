@@ -121,9 +121,24 @@ export async function updateProjectCategories(project_id, category_ids) {
 }
 
 /**
+ * Ensure the volunteer relationship table exists before using it.
+ */
+async function ensureVolunteerTable() {
+    await pool.query(`
+        CREATE TABLE IF NOT EXISTS project_volunteers (
+            project_id INT NOT NULL REFERENCES projects(project_id) ON DELETE CASCADE,
+            user_id INT NOT NULL REFERENCES users(user_id) ON DELETE CASCADE,
+            volunteered_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (project_id, user_id)
+        )
+    `);
+}
+
+/**
  * Check whether a user is volunteering for a project.
  */
 export async function isUserVolunteering(project_id, user_id) {
+    await ensureVolunteerTable();
     const sql = `
         SELECT 1
         FROM project_volunteers
@@ -137,6 +152,7 @@ export async function isUserVolunteering(project_id, user_id) {
  * Add a user to a project's volunteer list.
  */
 export async function addVolunteer(project_id, user_id) {
+    await ensureVolunteerTable();
     const sql = `
         INSERT INTO project_volunteers (project_id, user_id)
         VALUES ($1, $2)
@@ -151,6 +167,7 @@ export async function addVolunteer(project_id, user_id) {
  * Remove a user from a project's volunteer list.
  */
 export async function removeVolunteer(project_id, user_id) {
+    await ensureVolunteerTable();
     const sql = `
         DELETE FROM project_volunteers
         WHERE project_id = $1 AND user_id = $2
@@ -164,6 +181,7 @@ export async function removeVolunteer(project_id, user_id) {
  * Get all projects for which a user has volunteered.
  */
 export async function getProjectsByVolunteer(user_id) {
+    await ensureVolunteerTable();
     const sql = `
         SELECT
             p.project_id,
@@ -187,6 +205,7 @@ export async function getProjectsByVolunteer(user_id) {
  * Get the number of volunteers registered for a project.
  */
 export async function getVolunteerCount(project_id) {
+    await ensureVolunteerTable();
     const sql = `
         SELECT COUNT(*)::int AS volunteer_count
         FROM project_volunteers

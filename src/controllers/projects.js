@@ -46,7 +46,7 @@ export async function handleVolunteerSignup(req, res) {
 
         await addVolunteer(project_id, user_id);
         req.flash("success", `You are now volunteering for ${project.project_name}.`);
-        res.redirect(`/project/${project_id}`);
+        res.redirect("/management");
     } catch (error) {
         console.error("Volunteer signup error:", error);
         req.flash("error", "Unable to sign up for this project.");

@@ -65,13 +65,9 @@
                                         <div class="alert alert-success mb-3" role="status">
                                             <i class="bi bi-check-circle-fill me-2"></i>You are volunteering for this project.
                                         </div>
-                                        <form action="/project/<%= project.project_id %>/volunteer/remove" method="POST">
-                                            <button type="submit" class="btn btn-outline-danger w-100 rounded-pill py-2">Remove Volunteer Signup</button>
-                                        </form>
+                                        <a href="/project/<%= project.project_id %>/volunteer/remove" class="btn btn-outline-danger w-100 rounded-pill py-2">Remove Volunteer Signup</a>
                                     <% } else { %>
-                                        <form action="/project/<%= project.project_id %>/volunteer" method="POST">
-                                            <button type="submit" class="btn btn-primary w-100 rounded-pill py-2"><i class="bi bi-hand-thumbs-up me-2"></i>Volunteer for This Project</button>
-                                        </form>
+                                        <a href="/project/<%= project.project_id %>/volunteer" class="btn btn-primary w-100 rounded-pill py-2"><i class="bi bi-hand-thumbs-up me-2"></i>Volunteer for This Project</a>
                                     <% } %>
                                 <% } else { %>
                                     <p class="text-muted small">Log in to volunteer for this project.</p>
