@@ -30,7 +30,7 @@ export async function buildCategoryDetail(req, res) {
 export async function buildNewCategory(req, res) {
     res.render("category-form", {
         title: "Add New Category",
-        action: "/category/new",
+        action: "/categories/new",
         category: null
     });
 }
@@ -53,7 +53,7 @@ export async function handleNewCategory(req, res) {
         res.redirect("/management");
     } catch (error) {
         req.flash("error", "Error creating category.");
-        res.redirect("/category/new");
+        res.redirect("/categories/new");
     }
 }
 
@@ -66,7 +66,7 @@ export async function buildEditCategory(req, res) {
     }
     res.render("category-form", {
         title: "Edit Category",
-        action: `/category/edit/${category.category_id}`,
+        action: `/categories/edit/${category.category_id}`,
         category
     });
 }
@@ -79,7 +79,7 @@ export async function handleEditCategory(req, res) {
         req.flash("error", errors.array()[0].msg);
         return res.status(400).render("category-form", {
             title: "Edit Category",
-            action: `/category/edit/${category_id}`,
+            action: `/categories/edit/${category_id}`,
             category: { category_id, category_name: req.body.category_name }
         });
     }
@@ -90,6 +90,6 @@ export async function handleEditCategory(req, res) {
         res.redirect("/management");
     } catch (error) {
         req.flash("error", "Error updating category.");
-        res.redirect(`/category/edit/${category_id}`);
+        res.redirect(`/categories/edit/${category_id}`);
     }
 }

@@ -18,6 +18,11 @@
         .transition {
             transition: all 0.3s ease-in-out;
         }
+        .nav-link.active {
+            font-weight: 600;
+            border-bottom: 3px solid #0d6efd;
+            padding-bottom: 0.25rem;
+        }
     </style>
 </head>
 <body>
@@ -32,27 +37,27 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/">Home</a>
+                        <a class="nav-link <% if (req.path === '/') { %>active<% } %>" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/organization">Organizations</a>
+                        <a class="nav-link <% if (req.path.startsWith('/organization')) { %>active<% } %>" href="/organization">Organizations</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/project">Projects</a>
+                        <a class="nav-link <% if (req.path.startsWith('/project')) { %>active<% } %>" href="/project">Projects</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/categories">Categories</a>
+                        <a class="nav-link <% if (req.path.startsWith('/categories')) { %>active<% } %>" href="/categories">Categories</a>
                     </li>
                     <% if (loggedin) { %>
                         <li class="nav-item">
-                            <a class="nav-link" href="/management">Management</a>
+                            <a class="nav-link <% if (req.path === '/management') { %>active<% } %>" href="/management">Management</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/logout">Logout</a>
                         </li>
                     <% } else { %>
                         <li class="nav-item">
-                            <a class="nav-link" href="/login">Login</a>
+                            <a class="nav-link <% if (req.path === '/login') { %>active<% } %>" href="/login">Login</a>
                         </li>
                     <% } %>
                     <li class="nav-item ms-lg-3">
