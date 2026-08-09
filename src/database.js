@@ -21,7 +21,7 @@ pool.on('error', (err) => {
 });
 
 // Test connection and setup tables
-async function initDb() {
+const initDb = async () => {
     try {
         const client = await pool.connect();
         console.log('✅ Database connected successfully');

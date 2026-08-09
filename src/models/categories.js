@@ -4,7 +4,7 @@ import pool from "../database.js";
  * Get all categories from the database
  * This function is used to retrieve all category records for display.
  */
-export async function getAllCategories() {
+export const getAllCategories = async () => {
     const sql = "SELECT * FROM categories ORDER BY category_name ASC";
     try {
         const result = await pool.query(sql);
@@ -18,7 +18,7 @@ export async function getAllCategories() {
 /**
  * Get category by ID
  */
-export async function getCategoryById(category_id) {
+export const getCategoryById = async (category_id) => {
     const sql = "SELECT * FROM categories WHERE category_id = $1";
     const result = await pool.query(sql, [category_id]);
     return result.rows[0];
@@ -27,7 +27,7 @@ export async function getCategoryById(category_id) {
 /**
  * Get projects for a specific category
  */
-export async function getProjectsByCategoryId(category_id) {
+export const getProjectsByCategoryId = async (category_id) => {
     const sql = `
         SELECT p.* 
         FROM projects p
@@ -41,7 +41,7 @@ export async function getProjectsByCategoryId(category_id) {
 /**
  * Create a new category
  */
-export async function createCategory(category_name) {
+export const createCategory = async (category_name) => {
     const sql = "INSERT INTO categories (category_name) VALUES ($1) RETURNING *";
     const result = await pool.query(sql, [category_name]);
     return result.rows[0];
@@ -50,7 +50,7 @@ export async function createCategory(category_name) {
 /**
  * Update an existing category
  */
-export async function updateCategory(category_id, category_name) {
+export const updateCategory = async (category_id, category_name) => {
     const sql = "UPDATE categories SET category_name = $1 WHERE category_id = $2 RETURNING *";
     const result = await pool.query(sql, [category_name, category_id]);
     return result.rows[0];

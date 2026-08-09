@@ -4,7 +4,7 @@ import pool from "../database.js";
 /**
  * Get all organizations
  */
-export async function getAllOrganizations() {
+export const getAllOrganizations = async () => {
 
     const sql = `
         SELECT 
@@ -25,7 +25,7 @@ export async function getAllOrganizations() {
 /**
  * Get organization by ID
  */
-export async function getOrganizationById(organization_id) {
+export const getOrganizationById = async (organization_id) => {
     const sql = "SELECT * FROM organizations WHERE organization_id = $1";
     const result = await pool.query(sql, [organization_id]);
     return result.rows[0];
@@ -34,7 +34,7 @@ export async function getOrganizationById(organization_id) {
 /**
  * Get projects by organization ID
  */
-export async function getProjectsByOrganizationId(organization_id) {
+export const getProjectsByOrganizationId = async (organization_id) => {
     const sql = "SELECT * FROM projects WHERE organization_id = $1";
     const result = await pool.query(sql, [organization_id]);
     return result.rows;
@@ -43,7 +43,7 @@ export async function getProjectsByOrganizationId(organization_id) {
 /**
  * Create a new organization
  */
-export async function createOrganization(organization_name, description, contact_email, logo) {
+export const createOrganization = async (organization_name, description, contact_email, logo) => {
     const sql = "INSERT INTO organizations (organization_name, description, contact_email, logo) VALUES ($1, $2, $3, $4) RETURNING *";
     const result = await pool.query(sql, [organization_name, description, contact_email, logo]);
     return result.rows[0];
@@ -52,7 +52,7 @@ export async function createOrganization(organization_name, description, contact
 /**
  * Update an existing organization
  */
-export async function updateOrganization(organization_id, organization_name, description, contact_email, logo) {
+export const updateOrganization = async (organization_id, organization_name, description, contact_email, logo) => {
     const sql = "UPDATE organizations SET organization_name = $1, description = $2, contact_email = $3, logo = $4 WHERE organization_id = $5 RETURNING *";
     const result = await pool.query(sql, [organization_name, description, contact_email, logo, organization_id]);
     return result.rows[0];

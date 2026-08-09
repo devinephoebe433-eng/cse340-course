@@ -3,7 +3,7 @@ import { getAllOrganizations } from "../models/organizations.js";
 import { getAllCategories } from "../models/categories.js";
 import { validationResult } from "express-validator";
 
-export async function buildProjects(req, res) {
+export const buildProjects = async (req, res) => {
     const projects = await getUpcomingProjectsWithOrganization();
     res.render("projects", {
         title: "Upcoming Service Projects",
@@ -11,7 +11,7 @@ export async function buildProjects(req, res) {
     });
 }
 
-export async function buildProjectDetail(req, res) {
+export const buildProjectDetail = async (req, res) => {
     const project_id = req.params.projectId;
     const project = await getProjectById(project_id);
 
@@ -33,7 +33,7 @@ export async function buildProjectDetail(req, res) {
 }
 
 // POST Volunteer Signup
-export async function handleVolunteerSignup(req, res) {
+export const handleVolunteerSignup = async (req, res) => {
     const project_id = req.params.projectId;
     const user_id = req.session.user.id;
 
@@ -55,7 +55,7 @@ export async function handleVolunteerSignup(req, res) {
 }
 
 // POST Remove Volunteer Signup
-export async function handleVolunteerRemoval(req, res) {
+export const handleVolunteerRemoval = async (req, res) => {
     const project_id = req.params.projectId;
     const user_id = req.session.user.id;
 
@@ -71,7 +71,7 @@ export async function handleVolunteerRemoval(req, res) {
 }
 
 // GET New Project Form
-export async function buildNewProject(req, res) {
+export const buildNewProject = async (req, res) => {
     const organizations = await getAllOrganizations();
     res.render("project-form", {
         title: "Add New Project",
@@ -82,7 +82,7 @@ export async function buildNewProject(req, res) {
 }
 
 // POST New Project
-export async function handleNewProject(req, res) {
+export const handleNewProject = async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         const organizations = await getAllOrganizations();
@@ -107,7 +107,7 @@ export async function handleNewProject(req, res) {
 }
 
 // GET Edit Project Form
-export async function buildEditProject(req, res) {
+export const buildEditProject = async (req, res) => {
     const project = await getProjectById(req.params.projectId);
     if (!project) {
         req.flash("error", "Project not found.");
@@ -123,7 +123,7 @@ export async function buildEditProject(req, res) {
 }
 
 // POST Edit Project
-export async function handleEditProject(req, res) {
+export const handleEditProject = async (req, res) => {
     const project_id = req.params.projectId;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -149,7 +149,7 @@ export async function handleEditProject(req, res) {
 }
 
 // GET Category Assignment Form
-export async function buildUpdateCategories(req, res) {
+export const buildUpdateCategories = async (req, res) => {
     const project_id = req.params.projectId;
     const project = await getProjectById(project_id);
     if (!project) {
@@ -170,7 +170,7 @@ export async function buildUpdateCategories(req, res) {
 }
 
 // POST Category Assignment
-export async function handleUpdateCategories(req, res) {
+export const handleUpdateCategories = async (req, res) => {
     const project_id = req.params.projectId;
     const { category_ids } = req.body; // This will be an array or undefined
     

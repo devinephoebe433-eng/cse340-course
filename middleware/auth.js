@@ -1,4 +1,4 @@
-function requireLogin(req, res, next) {
+const requireLogin = (req, res, next) => {
     if (req.session.loggedin) {
         next();
     } else {
@@ -7,7 +7,7 @@ function requireLogin(req, res, next) {
     }
 }
 
-function requireAdmin(req, res, next) {
+const requireAdmin = (req, res, next) => {
     if (req.session.loggedin && req.session.user && req.session.user.role === 'admin') {
         next();
     } else {

@@ -1,7 +1,7 @@
 import { getAllCategories, getCategoryById, getProjectsByCategoryId, createCategory, updateCategory } from "../models/categories.js";
 import { validationResult } from "express-validator";
 
-export async function buildCategories(req, res) {
+export const buildCategories = async (req, res) => {
     const categories = await getAllCategories();
     res.render("categories", {
         title: "Categories",
@@ -9,7 +9,7 @@ export async function buildCategories(req, res) {
     });
 }
 
-export async function buildCategoryDetail(req, res) {
+export const buildCategoryDetail = async (req, res) => {
     const category_id = req.params.categoryId;
     const category = await getCategoryById(category_id);
 
@@ -27,7 +27,7 @@ export async function buildCategoryDetail(req, res) {
 }
 
 // GET New Category Form
-export async function buildNewCategory(req, res) {
+export const buildNewCategory = async (req, res) => {
     res.render("category-form", {
         title: "Add New Category",
         action: "/categories/new",
@@ -36,7 +36,7 @@ export async function buildNewCategory(req, res) {
 }
 
 // POST New Category
-export async function handleNewCategory(req, res) {
+export const handleNewCategory = async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         req.flash("error", errors.array()[0].msg);
@@ -58,7 +58,7 @@ export async function handleNewCategory(req, res) {
 }
 
 // GET Edit Category Form
-export async function buildEditCategory(req, res) {
+export const buildEditCategory = async (req, res) => {
     const category = await getCategoryById(req.params.categoryId);
     if (!category) {
         req.flash("error", "Category not found.");
@@ -72,7 +72,7 @@ export async function buildEditCategory(req, res) {
 }
 
 // POST Edit Category
-export async function handleEditCategory(req, res) {
+export const handleEditCategory = async (req, res) => {
     const category_id = req.params.categoryId;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

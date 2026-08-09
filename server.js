@@ -60,7 +60,7 @@ app.use("/categories", categoryRoutes);
 app.use("/", userRoutes);
 
 // AUTHENTICATED VOLUNTEER DASHBOARD
-async function renderDashboard(req, res) {
+const renderDashboard = async (req, res) => {
     try {
         const volunteeredProjects = await getProjectsByVolunteer(req.session.user.id);
         res.render("management", {

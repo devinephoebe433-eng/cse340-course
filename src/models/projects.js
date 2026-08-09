@@ -4,7 +4,7 @@ import pool from "../database.js";
 /**
  * Get all projects
  */
-export async function getUpcomingProjectsWithOrganization() {
+export const getUpcomingProjectsWithOrganization = async () => {
 
     const sql = `
         SELECT 
@@ -25,7 +25,7 @@ export async function getUpcomingProjectsWithOrganization() {
     return result.rows;
 }
 
-export async function getAllProjects() {
+export const getAllProjects = async () => {
 
     const sql = `
         SELECT 
@@ -49,7 +49,7 @@ export async function getAllProjects() {
 /**
  * Get project by ID
  */
-export async function getProjectById(project_id) {
+export const getProjectById = async (project_id) => {
     const sql = `
         SELECT p.*, o.organization_name 
         FROM projects p 
@@ -63,7 +63,7 @@ export async function getProjectById(project_id) {
 /**
  * Get categories for a specific project
  */
-export async function getCategoriesByProjectId(project_id) {
+export const getCategoriesByProjectId = async (project_id) => {
     const sql = `
         SELECT c.* 
         FROM categories c
@@ -77,7 +77,7 @@ export async function getCategoriesByProjectId(project_id) {
 /**
  * Create a new project
  */
-export async function createProject(project_name, project_description, location, date, organization_id) {
+export const createProject = async (project_name, project_description, location, date, organization_id) => {
     const sql = "INSERT INTO projects (project_name, project_description, location, date, organization_id) VALUES ($1, $2, $3, $4, $5) RETURNING *";
     const result = await pool.query(sql, [project_name, project_description, location, date, organization_id]);
     return result.rows[0];
@@ -86,7 +86,7 @@ export async function createProject(project_name, project_description, location,
 /**
  * Update an existing project
  */
-export async function updateProject(project_id, project_name, project_description, location, date, organization_id) {
+export const updateProject = async (project_id, project_name, project_description, location, date, organization_id) => {
     const sql = "UPDATE projects SET project_name = $1, project_description = $2, location = $3, date = $4, organization_id = $5 WHERE project_id = $6 RETURNING *";
     const result = await pool.query(sql, [project_name, project_description, location, date, organization_id, project_id]);
     return result.rows[0];
@@ -95,7 +95,7 @@ export async function updateProject(project_id, project_name, project_descriptio
 /**
  * Update categories for a project (Replace existing)
  */
-export async function updateProjectCategories(project_id, category_ids) {
+export const updateProjectCategories = async (project_id, category_ids) => {
     // Start a transaction
     const client = await pool.connect();
     try {
@@ -123,7 +123,7 @@ export async function updateProjectCategories(project_id, category_ids) {
 /**
  * Ensure the volunteer relationship table exists before using it.
  */
-async function ensureVolunteerTable() {
+const ensureVolunteerTable = async () => {
     await pool.query(`
         CREATE TABLE IF NOT EXISTS project_volunteers (
             project_id INT NOT NULL REFERENCES projects(project_id) ON DELETE CASCADE,
@@ -137,7 +137,7 @@ async function ensureVolunteerTable() {
 /**
  * Check whether a user is volunteering for a project.
  */
-export async function isUserVolunteering(project_id, user_id) {
+export const isUserVolunteering = async (project_id, user_id) => {
     await ensureVolunteerTable();
     const sql = `
         SELECT 1
@@ -151,7 +151,7 @@ export async function isUserVolunteering(project_id, user_id) {
 /**
  * Add a user to a project's volunteer list.
  */
-export async function addVolunteer(project_id, user_id) {
+export const addVolunteer = async (project_id, user_id) => {
     await ensureVolunteerTable();
     const sql = `
         INSERT INTO project_volunteers (project_id, user_id)
@@ -166,7 +166,7 @@ export async function addVolunteer(project_id, user_id) {
 /**
  * Remove a user from a project's volunteer list.
  */
-export async function removeVolunteer(project_id, user_id) {
+export const removeVolunteer = async (project_id, user_id) => {
     await ensureVolunteerTable();
     const sql = `
         DELETE FROM project_volunteers
@@ -180,7 +180,7 @@ export async function removeVolunteer(project_id, user_id) {
 /**
  * Get all projects for which a user has volunteered.
  */
-export async function getProjectsByVolunteer(user_id) {
+export const getProjectsByVolunteer = async (user_id) => {
     await ensureVolunteerTable();
     const sql = `
         SELECT
@@ -204,7 +204,7 @@ export async function getProjectsByVolunteer(user_id) {
 /**
  * Get the number of volunteers registered for a project.
  */
-export async function getVolunteerCount(project_id) {
+export const getVolunteerCount = async (project_id) => {
     await ensureVolunteerTable();
     const sql = `
         SELECT COUNT(*)::int AS volunteer_count

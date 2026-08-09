@@ -1,7 +1,7 @@
 import { getAllOrganizations, getOrganizationById, getProjectsByOrganizationId, createOrganization, updateOrganization } from "../models/organizations.js";
 import { validationResult } from "express-validator";
 
-export async function buildOrganizations(req, res) {
+export const buildOrganizations = async (req, res) => {
     const organizations = await getAllOrganizations();
     res.render("organizations", {
         title: "Organizations",
@@ -9,7 +9,7 @@ export async function buildOrganizations(req, res) {
     });
 }
 
-export async function buildOrganizationDetail(req, res) {
+export const buildOrganizationDetail = async (req, res) => {
     const organization_id = req.params.organizationId;
     const organization = await getOrganizationById(organization_id);
     
@@ -27,7 +27,7 @@ export async function buildOrganizationDetail(req, res) {
 }
 
 // GET New Organization Form
-export async function buildNewOrganization(req, res) {
+export const buildNewOrganization = async (req, res) => {
     res.render("organization-form", {
         title: "Add New Organization",
         action: "/organization/new",
@@ -36,7 +36,7 @@ export async function buildNewOrganization(req, res) {
 }
 
 // POST New Organization
-export async function handleNewOrganization(req, res) {
+export const handleNewOrganization = async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         req.flash("error", errors.array()[0].msg);
@@ -59,7 +59,7 @@ export async function handleNewOrganization(req, res) {
 }
 
 // GET Edit Organization Form
-export async function buildEditOrganization(req, res) {
+export const buildEditOrganization = async (req, res) => {
     const organization = await getOrganizationById(req.params.organizationId);
     if (!organization) {
         req.flash("error", "Organization not found.");
@@ -73,7 +73,7 @@ export async function buildEditOrganization(req, res) {
 }
 
 // POST Edit Organization
-export async function handleEditOrganization(req, res) {
+export const handleEditOrganization = async (req, res) => {
     const organization_id = req.params.organizationId;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

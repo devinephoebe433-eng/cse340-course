@@ -1,11 +1,11 @@
 import userModel from "../models/users.js";
 import bcrypt from "bcrypt";
 
-async function buildLogin(req, res) {
+const buildLogin = async (req, res) => {
     res.render("login", { title: "Login", nav: [] });
 }
 
-async function loginUser(req, res) {
+const loginUser = async (req, res) => {
     const { email, password } = req.body;
     try {
         const user = await userModel.getUserByEmail(email);
@@ -30,12 +30,12 @@ async function loginUser(req, res) {
     }
 }
 
-async function logoutUser(req, res) {
+const logoutUser = async (req, res) => {
     req.session.destroy();
     res.redirect("/");
 }
 
-async function registerUser(req, res) {
+const registerUser = async (req, res) => {
     const { name, email, password } = req.body;
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -49,7 +49,7 @@ async function registerUser(req, res) {
     }
 }
 
-async function buildUsersList(req, res) {
+const buildUsersList = async (req, res) => {
     try {
         const users = await userModel.getAllUsers();
         res.render("users", {
